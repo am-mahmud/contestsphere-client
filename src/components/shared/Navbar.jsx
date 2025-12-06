@@ -19,28 +19,31 @@ const Navbar = () => {
     );
 
     return (
-        <div className="navbar bg-base-100 shadow-sm sticky top-0 z-50 px-4 lg:px-8">
-            <div className="navbar-start">
-                <div className="dropdown">
-                    <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
-                        <CiMenuBurger />
+
+        <div className='bg-base-100 shadow-xs sticky top-0 z-50 px-4 lg:px-8'>
+            <div className="container mx-auto navbar ">
+                <div className="navbar-start">
+                    <div className="dropdown">
+                        <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
+                            <CiMenuBurger />
+                        </div>
+                        <ul
+                            tabIndex="-1"
+                            className="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow">
+                            {links}
+                        </ul>
                     </div>
-                    <ul
-                        tabIndex="-1"
-                        className="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow">
-                       {links}
+                    <Logo />
+                </div>
+                <div className="navbar-center hidden lg:flex">
+                    <ul className="menu menu-horizontal px-1">
+                        {links}
                     </ul>
                 </div>
-                <Logo/>
-            </div>
-            <div className="navbar-center hidden lg:flex">
-                <ul className="menu menu-horizontal px-1">
-                   {links}
-                </ul>
-            </div>
-            <div className="navbar-end gap-2">
-                <a className="btn btn-outline rounded-2xl text-[#20beff] border-[#20beff] hover:bg-[#20beff] hover:text-white hover:border-[#20beff]">Sign In</a>
-                <a className="btn rounded-2xl bg-gray-900 text-white border-gray-900 hover:bg-[#20beff] hover:border-[#20beff]">Register</a>
+                <div className="navbar-end gap-2">
+                    <a className="btn btn-outline rounded-2xl text-[#20beff] border-[#20beff] hover:bg-[#20beff] hover:text-white hover:border-[#20beff]">Sign In</a>
+                    <a className="btn rounded-2xl bg-gray-900 text-white border-gray-900 hover:bg-[#20beff] hover:border-[#20beff]">Register</a>
+                </div>
             </div>
         </div>
     );
