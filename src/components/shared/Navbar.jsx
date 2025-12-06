@@ -1,8 +1,23 @@
 import React from 'react';
 import { CiMenuBurger } from 'react-icons/ci';
 import Logo from './Logo';
+import SphereLink from './SphereLink';
 
 const Navbar = () => {
+
+
+
+    // Links 
+    const links = (
+        <div className="flex flex-col lg:flex-row gap-2 lg:gap-6">
+            <SphereLink to="/">Home</SphereLink>
+            <SphereLink to="/allcontests">All Contests</SphereLink>
+            <SphereLink to="/leaderboard">Leaderboard</SphereLink>
+            <SphereLink to="/blog">Blog</SphereLink>
+
+        </div>
+    );
+
     return (
         <div className="navbar bg-base-100 shadow-sm sticky top-0 z-50 px-4 lg:px-8">
             <div className="navbar-start">
@@ -13,20 +28,14 @@ const Navbar = () => {
                     <ul
                         tabIndex="-1"
                         className="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow">
-                        <li><a>Home</a></li>
-                        <li><a>All Contests</a></li>
-                        <li><a>Leaderboard</a></li>
-                        <li><a>Blog</a></li>
+                       {links}
                     </ul>
                 </div>
                 <Logo/>
             </div>
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu menu-horizontal px-1">
-                    <li><a>Home</a></li>
-                    <li><a>All Contests</a></li>
-                    <li><a>Leaderboard</a></li>
-                    <li><a>Blog</a></li>
+                   {links}
                 </ul>
             </div>
             <div className="navbar-end gap-2">
