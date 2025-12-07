@@ -3,7 +3,7 @@ import { useAuth } from '../../contexts/AuthContext';
 import Swal from 'sweetalert2';
 import { FcGoogle } from 'react-icons/fc';
 import { MdEmail } from 'react-icons/md';
-import { Link, useNavigate } from 'react-router';
+import { Link, useLocation, useNavigate } from 'react-router';
 import Logo from '../../components/shared/Logo';
 
 const Login = () => {

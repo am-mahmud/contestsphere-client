@@ -7,6 +7,8 @@ import Register from "../pages/auth/Register";
 import AllContests from "../pages/AllContests";
 import ContestDetails from "../pages/ContestDetails";
 import PrivateRoute from "./PrivetRoute";
+import DashboardLayout from "../components/layouts/DashboardLayout";
+import DashboardHome from "../pages/dashboard/DashboardHome";
 
 export const router = createBrowserRouter([
   {

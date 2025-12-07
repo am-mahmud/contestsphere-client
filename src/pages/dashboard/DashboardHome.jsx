@@ -1,6 +1,6 @@
 import { useAuth } from '../../contexts/AuthContext';
 import { FaTrophy, FaUsers, FaClipboardList, FaMedal } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 
 const DashboardHome = () => {
   const { user } = useAuth();

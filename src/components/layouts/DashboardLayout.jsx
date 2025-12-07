@@ -1,6 +1,9 @@
 import React from 'react';
+import { useAuth } from '../../contexts/AuthContext';
+import { Outlet } from 'react-router';
 
 const DashboardLayout = () => {
+    const { user } = useAuth();
     return (
         <div className="min-h-screen bg-base-200">
             <div className="drawer lg:drawer-open">
