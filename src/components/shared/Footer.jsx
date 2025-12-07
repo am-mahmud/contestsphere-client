@@ -9,24 +9,30 @@ const Footer = () => {
                     <Logo />
                 </aside>
                 <nav>
-                    <h6 className="footer-title">Services</h6>
-                    <a className="link link-hover">Branding</a>
-                    <a className="link link-hover">Design</a>
-                    <a className="link link-hover">Marketing</a>
+                    <h6 className="footer-title">Products</h6>
+                    <a className="link link-hover">Competitions</a>
+                    <a className="link link-hover">Learn</a>
+                    <a className="link link-hover">Discussion</a>
                     <a className="link link-hover">Advertisement</a>
                 </nav>
                 <nav>
                     <h6 className="footer-title">Company</h6>
                     <a className="link link-hover">About us</a>
                     <a className="link link-hover">Contact</a>
-                    <a className="link link-hover">Jobs</a>
-                    <a className="link link-hover">Press kit</a>
+                    <a className="link link-hover">Career</a>
+                    <a className="link link-hover">Our Team</a>
                 </nav>
                 <nav>
                     <h6 className="footer-title">Legal</h6>
                     <a className="link link-hover">Terms of use</a>
                     <a className="link link-hover">Privacy policy</a>
                     <a className="link link-hover">Cookie policy</a>
+                </nav>
+                <nav>
+                    <h6 className="footer-title">Find Us</h6>
+                    <a className="link link-hover">Instagram</a>
+                    <a className="link link-hover">Facebook</a>
+                    <a className="link link-hover">Discord</a>
                 </nav>
             </div>
         </footer>
