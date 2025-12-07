@@ -9,6 +9,9 @@ import ContestDetails from "../pages/ContestDetails";
 import PrivateRoute from "./PrivetRoute";
 import DashboardLayout from "../components/layouts/DashboardLayout";
 import DashboardHome from "../pages/dashboard/DashboardHome";
+import MyParticipated from "../pages/dashboard/user/MyParticipated";
+import MyWinning from "../pages/dashboard/user/MyWinning";
+import MyProfile from "../pages/dashboard/user/MyProfile";
 
 export const router = createBrowserRouter([
   {
@@ -36,6 +39,9 @@ export const router = createBrowserRouter([
     ),
     children: [
       { path: '/dashboard', element: <DashboardHome /> },
+      { path: '/dashboard/participated', element: <MyParticipated /> },
+      { path: '/dashboard/winning', element: <MyWinning /> },
+      { path: '/dashboard/profile', element: <MyProfile /> },
       // More dashboard routes will be added here
     ],
   },
