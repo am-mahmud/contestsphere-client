@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 import { FaUsers, FaTrophy, FaClock } from 'react-icons/fa';
 
 const ContestCard = ({ contest }) => {

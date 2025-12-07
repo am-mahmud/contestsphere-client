@@ -1,7 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
 import { contestAPI } from '../../api/contest';
+
+import { Link } from 'react-router';
 import ContestCard from '../contest/ContestCard';
-import { Link } from 'react-router-dom';
 
 const PopularContests = () => {
   // Fetch popular contests
@@ -11,15 +12,15 @@ const PopularContests = () => {
   });
 
   return (
-    <section className="container mx-auto px-4 lg:px-8 py-16">
+    <section className="container mx-auto mt-10">
       <div className="flex justify-between items-center mb-8">
         <div>
           <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-2">
             Popular Contests
           </h2>
-          <p className="text-gray-600">
+          {/* <p className="text-gray-600">
             Join the most participated challenges
-          </p>
+          </p> */}
         </div>
         <Link
           to="/allcontests"
