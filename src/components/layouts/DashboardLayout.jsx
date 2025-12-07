@@ -95,9 +95,21 @@ const DashboardLayout = () => {
 
 
 
+                        {/* Logout Button */}
+                        <div className="mt-auto pt-4 border-t border-base-300">
+                            <button
+                                onClick={handleLogout}
+                                className="btn btn-outline btn-error w-full flex items-center gap-2"
+                            >
+                                <FaSignOutAlt />
+                                Logout
+                            </button>
+                        </div>
                     </div>
                 </div>
-                );
+            </div>
+        </div>
+    );
 };
 
-                export default DashboardLayout;
+export default DashboardLayout;
