@@ -4,6 +4,7 @@ import Swal from 'sweetalert2';
 import { FcGoogle } from 'react-icons/fc';
 import { MdEmail } from 'react-icons/md';
 import {Link, useNavigate } from 'react-router';
+import Logo from '../../components/shared/Logo';
 
 const Login = () => {
   const { register, handleSubmit, formState: { errors } } = useForm();
@@ -51,13 +52,13 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-base-200 py-12 px-4">
+    <div className="min-h-screen flex items-center justify-center bg-base-200 py-12 px-4 sora">
       <div className="card w-full max-w-md bg-base-100 rounded-3xl border border-base-300">
         <div className="card-body">
           {/* Logo */}
           <div className="text-center mb-6">
-            <h1 className="text-4xl font-bold text-[#20beff] mb-2">ContestSphere</h1>
-            <h2 className="text-3xl font-bold text-base-content">Welcome!</h2>
+            <Logo />
+            <h2 className="text-xl font-bold text-base-content mt-2">Welcome!</h2>
           </div>
 
           {/* Tabs */}

@@ -20,6 +20,8 @@ import { AuthProvider } from './contexts/AuthContext';
 import { router } from './routes/Routes';
 import './index.css';
 
+
+
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
