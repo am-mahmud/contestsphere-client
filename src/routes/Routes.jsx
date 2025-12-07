@@ -4,6 +4,7 @@ import MainLayout from "../components/layouts/MainLayout";
 import NotFound from "../pages/NotFound";
 import Login from "../pages/auth/Login";
 import Register from "../pages/auth/Register";
+import AllContests from "../pages/AllContests";
 
 export const router = createBrowserRouter([
   {
@@ -13,6 +14,7 @@ export const router = createBrowserRouter([
       { path: '/', element: <Home /> },
       { path: '/login', element: <Login /> },
       { path: '/register', element: <Register /> },
+      {path: '/allcontests', element: <AllContests/>},
     ],
   },
   {
