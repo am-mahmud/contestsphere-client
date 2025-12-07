@@ -43,7 +43,8 @@ const Login = () => {
                 showConfirmButton: false,
                 timer: 1500
             });
-            navigate('/');
+            const from = location.state?.from?.pathname || '/';
+            navigate(from, { replace: true });
         } catch (error) {
             Swal.fire({
                 icon: 'error',
