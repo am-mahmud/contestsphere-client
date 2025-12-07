@@ -6,6 +6,7 @@ import Login from "../pages/auth/Login";
 import Register from "../pages/auth/Register";
 import AllContests from "../pages/AllContests";
 import ContestDetails from "../pages/ContestDetails";
+import PrivateRoute from "./PrivetRoute";
 
 export const router = createBrowserRouter([
   {
@@ -16,7 +17,12 @@ export const router = createBrowserRouter([
       { path: '/login', element: <Login /> },
       { path: '/register', element: <Register /> },
       { path: '/allcontests', element: <AllContests /> },
-      { path: '/contest/:id',element: <ContestDetails />},
+      {
+        path: '/contest/:id', element:
+          <PrivateRoute>
+            <ContestDetails />
+          </PrivateRoute>
+      },
     ],
   },
   {
