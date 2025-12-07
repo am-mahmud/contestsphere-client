@@ -94,7 +94,7 @@ const Register = () => {
               <input
                 type="text"
                 placeholder="Full Name"
-                className="input input-bordered rounded-full"
+                className="input input-bordered w-full rounded-full"
                 {...registerForm('name', { 
                   required: 'Name is required',
                   minLength: {
@@ -112,7 +112,7 @@ const Register = () => {
               <input
                 type="email"
                 placeholder="Email"
-                className="input input-bordered rounded-full"
+                className="input input-bordered w-full rounded-full"
                 {...registerForm('email', { 
                   required: 'Email is required',
                   pattern: {
@@ -130,7 +130,7 @@ const Register = () => {
               <input
                 type="password"
                 placeholder="Password"
-                className="input input-bordered rounded-full"
+                className="input input-bordered w-full rounded-full"
                 {...registerForm('password', { 
                   required: 'Password is required',
                   minLength: {
@@ -148,7 +148,7 @@ const Register = () => {
               <input
                 type="url"
                 placeholder="Photo URL"
-                className="input input-bordered rounded-full"
+                className="input input-bordered w-full rounded-full"
                 {...registerForm('photo', { 
                   required: 'Photo URL is required',
                   pattern: {
@@ -158,11 +158,11 @@ const Register = () => {
                 })}
               />
               {errors.photo && (
-                <span className="text-error text-sm mt-1 ml-4">{errors.photo.message}</span>
+                <span className="text-error  text-sm mt-1 ml-4">{errors.photo.message}</span>
               )}
             </div>
 
-            <button type="submit" className="btn btn-primary w-full rounded-full">
+            <button type="submit" className="btn bg-[#20beff] w-full rounded-full">
               Register
             </button>
           </form>

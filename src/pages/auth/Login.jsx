@@ -94,7 +94,7 @@ const Login = () => {
               <input
                 type="email"
                 placeholder="Email"
-                className="input input-bordered rounded-full"
+                className="input input-bordered w-full rounded-full"
                 {...register('email', { 
                   required: 'Email is required',
                   pattern: {
@@ -112,7 +112,7 @@ const Login = () => {
               <input
                 type="password"
                 placeholder="Password"
-                className="input input-bordered rounded-full"
+                className="input input-bordered  w-full rounded-full"
                 {...register('password', { 
                   required: 'Password is required',
                   minLength: {
@@ -126,7 +126,7 @@ const Login = () => {
               )}
             </div>
 
-            <button type="submit" className="btn btn-primary w-full rounded-full">
+            <button type="submit" className="btn bg-[#20beff] w-full rounded-full">
               Sign In
             </button>
           </form>
