@@ -32,7 +32,7 @@ export const contestAPI = {
     },
 
     // Get popular contests (sorted by participants)
-    getPopularContests: async (limit = 5) => {
+    getPopularContests: async (limit = 4) => {
         const { data } = await api.get('/api/contests', {
             params: { sort: 'popular', limit }
         });
