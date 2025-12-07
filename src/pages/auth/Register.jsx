@@ -4,6 +4,7 @@ import { useAuth } from '../../contexts/AuthContext';
 import Swal from 'sweetalert2';
 import { FcGoogle } from 'react-icons/fc';
 import { MdEmail } from 'react-icons/md';
+import Logo from '../../components/shared/Logo';
 
 const Register = () => {
     const { register: registerForm, handleSubmit, formState: { errors }, watch } = useForm();
@@ -56,8 +57,8 @@ const Register = () => {
                 <div className="card-body">
                     {/* Logo */}
                     <div className="text-center mb-6">
-                        <h1 className="text-4xl font-bold text-[#20beff] mb-2">ContestSphere</h1>
-                        <h2 className="text-3xl font-bold text-base-content">Welcome!</h2>
+                        <Logo/>
+                        <h2 className="text-xl font-bold text-base-content mt-2">Welcome!</h2>
                     </div>
 
                     {/* Tabs */}
