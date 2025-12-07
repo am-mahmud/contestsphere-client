@@ -18,8 +18,16 @@ export const contestAPI = {
         const { data } = await api.post('/api/contests', contestData);
         return data;
     },
+
+    //Update contest
     updateContest: async (id, contestData) => {
         const { data } = await api.put(`/api/contests/${id}`, contestData);
         return data;
     },
+
+    // Delete contest
+  deleteContest: async (id) => {
+    const { data } = await api.delete(`/api/contests/${id}`);
+    return data;
+  },
 }
