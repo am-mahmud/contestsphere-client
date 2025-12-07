@@ -26,8 +26,16 @@ export const contestAPI = {
     },
 
     // Delete contest
-  deleteContest: async (id) => {
-    const { data } = await api.delete(`/api/contests/${id}`);
-    return data;
-  },
+    deleteContest: async (id) => {
+        const { data } = await api.delete(`/api/contests/${id}`);
+        return data;
+    },
+
+    // Get popular contests (sorted by participants)
+    getPopularContests: async (limit = 5) => {
+        const { data } = await api.get('/api/contests', {
+            params: { sort: 'popular', limit }
+        });
+        return data;
+    },
 }
