@@ -18,5 +18,8 @@ export const contestAPI = {
         const { data } = await api.post('/api/contests', contestData);
         return data;
     },
-
+    updateContest: async (id, contestData) => {
+        const { data } = await api.put(`/api/contests/${id}`, contestData);
+        return data;
+    },
 }
