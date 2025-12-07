@@ -12,6 +12,9 @@ import DashboardHome from "../pages/dashboard/DashboardHome";
 import MyParticipated from "../pages/dashboard/user/MyParticipated";
 import MyWinning from "../pages/dashboard/user/MyWinning";
 import MyProfile from "../pages/dashboard/user/MyProfile";
+import AddContest from "../pages/dashboard/creator/AddContest";
+import MyCreatedContests from "../pages/dashboard/creator/MyCreatedContests";
+import EditContest from "../pages/dashboard/creator/EditContest";
 
 export const router = createBrowserRouter([
   {
@@ -42,7 +45,9 @@ export const router = createBrowserRouter([
       { path: '/dashboard/participated', element: <MyParticipated /> },
       { path: '/dashboard/winning', element: <MyWinning /> },
       { path: '/dashboard/profile', element: <MyProfile /> },
-      // More dashboard routes will be added here
+      { path: '/dashboard/add-contest', element: <AddContest /> },
+      { path: '/dashboard/my-contests', element: <MyCreatedContests /> },
+      { path: '/dashboard/edit-contest/:id', element: <EditContest /> },
     ],
   },
   {
