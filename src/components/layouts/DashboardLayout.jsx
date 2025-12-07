@@ -41,14 +41,63 @@ const DashboardLayout = () => {
                             </div>
                         </div>
 
-
+                        {/* Page Content */}
+                        <div className="p-4 lg:p-8">
+                            <Outlet />
+                        </div>
                     </div>
 
 
+                    {/* Sidebar */}
+                    <div className="drawer-side z-50">
+                        <label htmlFor="dashboard-drawer" className="drawer-overlay"></label>
+                        <div className="menu p-4 w-80 min-h-full bg-base-100 text-base-content">
+                            {/* Sidebar Header */}
+                            <div className="mb-8 p-4">
+                                <h2 className="text-2xl font-bold text-[#20beff] mb-2">ContestSphere</h2>
+                                <div className="flex items-center gap-3 mt-4 p-3 bg-base-200 rounded-lg">
+                                    <div className="avatar">
+                                        <div className="w-12 rounded-full">
+                                            <img src={user?.photo || 'https://via.placeholder.com/48'} alt={user?.name} />
+                                        </div>
+                                    </div>
+                                    <div className="flex-1">
+                                        <p className="font-bold text-sm">{user?.name}</p>
+                                        <p className="text-xs text-base-content/70 capitalize">{user?.role}</p>
+                                    </div>
+                                </div>
+                            </div>
 
+                            {/* Menu Items */}
+                            <ul className="space-y-2">
+                                {menuItems.map((item) => (
+                                    <li key={item.path}>
+                                        {item.external ? (
+                                            <Link to={item.path} className="flex items-center gap-3 hover:bg-[#20beff] hover:text-white rounded-lg">
+                                                <span className="text-xl">{item.icon}</span>
+                                                <span>{item.label}</span>
+                                            </Link>
+                                        ) : (
+                                            <Link
+                                                to={item.path}
+                                                className="flex items-center gap-3 hover:bg-[#20beff] hover:text-white rounded-lg"
+                                            >
+                                                <span className="text-xl">{item.icon}</span>
+                                                <span>{item.label}</span>
+                                            </Link>
+                                        )}
+                                    </li>
+                                ))}
+                            </ul>
+
+
+                        </div>
+
+
+
+                    </div>
                 </div>
-            </div>
-            );
+                );
 };
 
-            export default DashboardLayout;
+                export default DashboardLayout;
