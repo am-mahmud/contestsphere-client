@@ -16,6 +16,8 @@ import AddContest from "../pages/dashboard/creator/AddContest";
 import MyCreatedContests from "../pages/dashboard/creator/MyCreatedContests";
 import EditContest from "../pages/dashboard/creator/EditContest";
 import SubmittedTasks from "../pages/dashboard/creator/SubmittedTasks";
+import ManageUsers from "../pages/dashboard/admin/ManageUsers";
+import ManageContests from "../pages/dashboard/admin/ManageContests";
 
 export const router = createBrowserRouter([
   {
