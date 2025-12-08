@@ -18,6 +18,7 @@ import EditContest from "../pages/dashboard/creator/EditContest";
 import SubmittedTasks from "../pages/dashboard/creator/SubmittedTasks";
 import ManageUsers from "../pages/dashboard/admin/ManageUsers";
 import ManageContests from "../pages/dashboard/admin/ManageContests";
+import Leaderboard from "../pages/Leaderboard";
 
 export const router = createBrowserRouter([
   {
@@ -28,6 +29,7 @@ export const router = createBrowserRouter([
       { path: '/login', element: <Login /> },
       { path: '/register', element: <Register /> },
       { path: '/allcontests', element: <AllContests /> },
+      { path: '/leaderboard', element: <Leaderboard /> },
       {
         path: '/contest/:id', element:
           <PrivateRoute>

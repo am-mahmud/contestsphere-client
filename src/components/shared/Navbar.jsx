@@ -59,6 +59,7 @@ import Logo from './Logo';
 import SphereLink from './SphereLink';
 import { useAuth } from '../../contexts/AuthContext';
 import Swal from 'sweetalert2';
+import ThemeToggle from './ThemeToggle';
 
 const Navbar = () => {
   const { user, logout } = useAuth();
@@ -113,13 +114,15 @@ const Navbar = () => {
             {links}
           </ul>
         </div>
+       
+       
         <div className="navbar-end gap-2">
           {user ? (
             <div className="dropdown dropdown-end">
               <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
                 <div className="w-10 rounded-full">
-                  <img 
-                    src={user.photo || 'https://ui-avatars.com/api/?name=' + user.name} 
+                  <img
+                    src={user.photo || 'https://ui-avatars.com/api/?name=' + user.name}
                     alt={user.name}
                   />
                 </div>
@@ -143,6 +146,9 @@ const Navbar = () => {
             </>
           )}
         </div>
+
+        
+       
       </div>
     </div>
   );
