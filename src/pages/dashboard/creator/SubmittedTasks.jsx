@@ -210,25 +210,17 @@ const SubmittedTasks = () => {
                             </div>
 
                             {/* Submission Content */}
+
                             <div className="bg-base-200 p-4 rounded-lg">
-                              <p className="text-sm font-semibold mb-2">Submitted Task:</p>
-                              <p className="text-sm whitespace-pre-wrap mb-3">
-                                {submission.submittedTask}
-                              </p>
-                              {/* If submission contains links */}
-                              {submission.submittedTask.includes('http') && (
+
                                 
-                                  href={
-                                    submission.submittedTask.match(/https?:\/\/[^\s]+/)?.[0]
-                                  }
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                  className="btn btn-sm btn-outline gap-2"
-                                >
-                                  <FaLink /> View Submission Link
-                                </a>
-                              )}
                             </div>
+                           
+
+
+
+
+
                           </div>
                         </div>
 
