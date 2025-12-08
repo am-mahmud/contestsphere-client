@@ -182,7 +182,7 @@ const SubmittedTasks = () => {
                                                         </div>
                                                     </div>
 
-                                                    <div className="flex-grow">
+                                                    <div className="grow">
                                                         <div className="flex items-center gap-2 mb-2">
                                                             <h3 className="text-xl font-bold text-gray-900">
                                                                 {submission.userId.name}
@@ -209,16 +209,15 @@ const SubmittedTasks = () => {
                                                         </div>
 
                                                         {/* Submission Content */}
-
                                                         <div className="bg-base-200 p-4 rounded-lg">
-
-
+                                                            <p className="text-sm font-semibold mb-2">Submitted Task:</p>
+                                                            <p className="text-sm whitespace-pre-wrap mb-3">
+                                                                {submission.submittedTask}
+                                                            </p>
                                                         </div>
 
-                                                        <p className="text-sm font-semibold mb-2">Submitted Task:</p>
-                                                        <p className="text-sm whitespace-pre-wrap mb-3">
-                                                            {submission.submittedTask}
-                                                        </p>
+
+
 
 
 
