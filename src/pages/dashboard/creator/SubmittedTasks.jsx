@@ -214,6 +214,16 @@ const SubmittedTasks = () => {
                                                             <p className="text-sm whitespace-pre-wrap mb-3">
                                                                 {submission.submittedTask}
                                                             </p>
+
+                                                            {submission.submittedTask.includes('http') ? (
+
+                                                                <a> href={submission.submittedTask.match(/https?:\/\/[^\s]+/)?.[0]}
+                                                                    target="_blank"
+                                                                    rel="noopener noreferrer"
+                                                                    className="btn btn-sm btn-outline gap-2"
+                                                                    <FaLink /> View Submission Link
+                                                                </a>
+                                                            ) : null}
                                                         </div>
 
 
