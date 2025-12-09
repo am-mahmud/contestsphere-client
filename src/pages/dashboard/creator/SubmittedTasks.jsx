@@ -8,7 +8,6 @@ const SubmittedTasks = () => {
     const queryClient = useQueryClient();
     const [selectedContest, setSelectedContest] = useState('');
 
-    // Fetch creator's contests
     const { data: contests, isLoading: loadingContests } = useQuery({
         queryKey: ['myCreatedContests'],
         queryFn: async () => {
@@ -17,7 +16,6 @@ const SubmittedTasks = () => {
         },
     });
 
-    // Fetch submissions for selected contest
     const { data: submissions, isLoading: loadingSubmissions } = useQuery({
         queryKey: ['submissions', selectedContest],
         queryFn: async () => {
@@ -27,7 +25,6 @@ const SubmittedTasks = () => {
         enabled: !!selectedContest,
     });
 
-    // Declare winner mutation
     const declareWinnerMutation = useMutation({
         mutationFn: async ({ contestId, participationId }) => {
             const { data } = await api.post(
@@ -74,10 +71,8 @@ const SubmittedTasks = () => {
         });
     };
 
-    // Filter only submitted tasks
     const submittedTasks = submissions?.filter((s) => s.submittedTask) || [];
 
-    // Get selected contest details
     const selectedContestData = contests?.find((c) => c._id === selectedContest);
     const isExpired = selectedContestData
         ? new Date(selectedContestData.deadline) < new Date()
@@ -86,7 +81,7 @@ const SubmittedTasks = () => {
 
     return (
         <div>
-            {/* Header */}
+           
             <div className="mb-8">
                 <h1 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-2">
                     Submitted Tasks
@@ -94,7 +89,7 @@ const SubmittedTasks = () => {
                 <p className="text-gray-600">Review submissions and declare winners</p>
             </div>
 
-            {/* Contest Selection */}
+
             <div className="card bg-white shadow-lg mb-6">
                 <div className="card-body">
                     <h2 className="card-title mb-4">Select Contest</h2>
@@ -117,7 +112,6 @@ const SubmittedTasks = () => {
                 </div>
             </div>
 
-            {/* Contest Info Banner */}
             {selectedContestData && (
                 <div className="alert mb-6 bg-base-200">
                     <div className="flex items-center gap-4 w-full">
@@ -126,7 +120,7 @@ const SubmittedTasks = () => {
                             alt={selectedContestData.name}
                             className="w-16 h-16 rounded-lg object-cover"
                         />
-                        <div className="flex-grow">
+                        <div className="grow">
                             <h3 className="font-bold text-lg">{selectedContestData.name}</h3>
                             <div className="flex gap-4 text-sm">
                                 <span>Prize: ${selectedContestData.prizeMoney}</span>
