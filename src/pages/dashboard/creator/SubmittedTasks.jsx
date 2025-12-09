@@ -2,7 +2,8 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import api from '../../../utils/api';
 import Swal from 'sweetalert2';
 import { useState } from 'react';
-import { FaTrophy, FaUser, FaEnvelope, FaCalendarAlt, FaLink } from 'react-icons/fa';
+import { FaTrophy } from 'react-icons/fa';
+import { FiTarget } from 'react-icons/fi';
 
 const SubmittedTasks = () => {
     const queryClient = useQueryClient();
@@ -27,253 +28,101 @@ const SubmittedTasks = () => {
 
     const declareWinnerMutation = useMutation({
         mutationFn: async ({ contestId, participationId }) => {
-            const { data } = await api.post(
-                `/api/participations/declare-winner/${contestId}/${participationId}`
-            );
+            const { data } = await api.post(`/api/participations/declare-winner/${contestId}/${participationId}`);
             return data;
         },
         onSuccess: () => {
             queryClient.invalidateQueries(['submissions', selectedContest]);
-            queryClient.invalidateQueries(['myCreatedContests']);
-            Swal.fire({
-                icon: 'success',
-                title: 'Winner Declared!',
-                text: 'The winner has been successfully announced',
-                showConfirmButton: false,
-                timer: 2000,
-            });
+            Swal.fire({ icon: 'success', title: 'Winner Declared!', timer: 2000 });
         },
         onError: (error) => {
-            Swal.fire({
-                icon: 'error',
-                title: 'Error!',
-                text: error.response?.data?.message || 'Failed to declare winner',
-            });
+            Swal.fire({ icon: 'error', title: 'Error!', text: error.response?.data?.message });
         },
     });
 
     const handleDeclareWinner = (participationId) => {
         Swal.fire({
             title: 'Declare Winner?',
-            text: 'This action cannot be undone. Are you sure?',
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#20beff',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, declare winner!',
         }).then((result) => {
             if (result.isConfirmed) {
-                declareWinnerMutation.mutate({
-                    contestId: selectedContest,
-                    participationId,
-                });
+                declareWinnerMutation.mutate({ contestId: selectedContest, participationId });
             }
         });
     };
 
     const submittedTasks = submissions?.filter((s) => s.submittedTask) || [];
-
     const selectedContestData = contests?.find((c) => c._id === selectedContest);
-    const isExpired = selectedContestData
-        ? new Date(selectedContestData.deadline) < new Date()
-        : false;
+    const isExpired = selectedContestData ? new Date(selectedContestData.deadline) < new Date() : false;
     const hasWinner = selectedContestData?.winnerId;
 
     return (
-        <div>
-           
-            <div className="mb-8">
-                <h1 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-2">
-                    Submitted Tasks
-                </h1>
-                <p className="text-gray-600">Review submissions and declare winners</p>
+        <div className="max-w-6xl mx-auto">
+            <div className="mb-6">
+                <h1 className="text-3xl font-bold mb-1">Submitted Tasks</h1>
+                <p className="text-gray-600">Review and declare winners</p>
             </div>
 
+            <select
+                className="select select-bordered w-full mb-6"
+                value={selectedContest}
+                onChange={(e) => setSelectedContest(e.target.value)}
+            >
+                <option value="">Select a contest</option>
+                {contests?.map((c) => (
+                    <option key={c._id} value={c._id}>
+                        {c.name} ({c.participantCount})
+                    </option>
+                ))}
+            </select>
 
-            <div className="card bg-white shadow-lg mb-6">
-                <div className="card-body">
-                    <h2 className="card-title mb-4">Select Contest</h2>
-                    {loadingContests ? (
-                        <div className="skeleton h-12 w-full"></div>
-                    ) : (
-                        <select
-                            className="select select-bordered w-full"
-                            value={selectedContest}
-                            onChange={(e) => setSelectedContest(e.target.value)}
-                        >
-                            <option value="">Choose a contest to view submissions</option>
-                            {contests?.map((contest) => (
-                                <option key={contest._id} value={contest._id}>
-                                    {contest.name} ({contest.participantCount} participants)
-                                </option>
-                            ))}
-                        </select>
-                    )}
-                </div>
-            </div>
-
-            {selectedContestData && (
-                <div className="alert mb-6 bg-base-200">
-                    <div className="flex items-center gap-4 w-full">
-                        <img
-                            src={selectedContestData.image}
-                            alt={selectedContestData.name}
-                            className="w-16 h-16 rounded-lg object-cover"
-                        />
-                        <div className="grow">
-                            <h3 className="font-bold text-lg">{selectedContestData.name}</h3>
-                            <div className="flex gap-4 text-sm">
-                                <span>Prize: ${selectedContestData.prizeMoney}</span>
-                                <span>•</span>
-                                <span>Participants: {selectedContestData.participantCount}</span>
-                                <span>•</span>
-                                <span className={isExpired ? 'text-error' : 'text-warning'}>
-                                    {isExpired ? 'Ended' : 'Active'}
-                                </span>
-                            </div>
-                        </div>
-                        {hasWinner && (
-                            <div className="badge badge-success gap-2">
-                                <FaTrophy /> Winner Declared
-                            </div>
-                        )}
-                    </div>
-                </div>
-            )}
-
-    
-            {selectedContest && (
-                <>
-                    {loadingSubmissions ? (
-                        <div className="space-y-4">
-                            {[...Array(3)].map((_, i) => (
-                                <div key={i} className="skeleton h-32 w-full"></div>
-                            ))}
-                        </div>
-                    ) : submittedTasks.length > 0 ? (
-                        <div className="space-y-4">
-                            {submittedTasks.map((submission) => {
-                                const isWinner =
-                                    selectedContestData?.winnerId &&
-                                    selectedContestData.winnerId.toString() === submission.userId._id.toString();
-
-                                return (
-                                    <div
-                                        key={submission._id}
-                                        className={`card bg-white shadow-lg ${isWinner ? 'ring-2 ring-yellow-400' : ''
-                                            }`}
-                                    >
-                                        <div className="card-body">
-                                            <div className="flex flex-col lg:flex-row gap-6">
-                                                {/* Participant Info */}
-                                                <div className="flex items-start gap-4 flex-grow">
-                                                    <div className="avatar">
-                                                        <div className="w-16 h-16 rounded-full">
-                                                            <img
-                                                                src={submission.userId.photo}
-                                                                alt={submission.userId.name}
-                                                            />
-                                                        </div>
-                                                    </div>
-
-                                                    <div className="grow">
-                                                        <div className="flex items-center gap-2 mb-2">
-                                                            <h3 className="text-xl font-bold text-gray-900">
-                                                                {submission.userId.name}
-                                                            </h3>
-                                                            {isWinner && (
-                                                                <div className="badge badge-warning gap-1">
-                                                                    <FaTrophy /> Winner
-                                                                </div>
-                                                            )}
-                                                        </div>
-
-                                                        <div className="flex flex-wrap gap-4 text-sm text-gray-600 mb-3">
-                                                            <div className="flex items-center gap-1">
-                                                                <FaEnvelope />
-                                                                <span>{submission.userId.email}</span>
-                                                            </div>
-                                                            <div className="flex items-center gap-1">
-                                                                <FaCalendarAlt />
-                                                                <span>
-                                                                    Submitted:{' '}
-                                                                    {new Date(submission.submittedAt).toLocaleDateString()}
-                                                                </span>
-                                                            </div>
-                                                        </div>
-
-                                                        {/* Submission Content */}
-                                                        <div className="bg-base-200 p-4 rounded-lg">
-                                                            <p className="text-sm font-semibold mb-2">Submitted Task:</p>
-                                                            <p className="text-sm whitespace-pre-wrap mb-3">
-                                                                {submission.submittedTask}
-                                                            </p>
-
-                                                            {submission.submittedTask.includes('http') ? (
-
-                                                                <a> href={submission.submittedTask.match(/https?:\/\/[^\s]+/)?.[0]}
-                                                                    target="_blank"
-                                                                    rel="noopener noreferrer"
-                                                                    className="btn btn-sm btn-outline gap-2"
-                                                                    <FaLink /> View Submission Link
-                                                                </a>
-                                                            ) : null}
-                                                        </div>
-
-
-
-
-
-
-
-                                                    </div>
-                                                </div>
-
-                                                {/* Actions */}
-                                                <div className="flex lg:flex-col gap-2 justify-end">
-                                                    {!hasWinner && isExpired && (
-                                                        <button
-                                                            onClick={() => handleDeclareWinner(submission._id)}
-                                                            className="btn bg-yellow-500 hover:bg-yellow-600 text-white gap-2"
-                                                            disabled={declareWinnerMutation.isPending}
-                                                        >
-                                                            <FaTrophy /> Declare Winner
-                                                        </button>
-                                                    )}
-                                                    {!isExpired && (
-                                                        <div className="badge badge-info">Contest Active</div>
-                                                    )}
-                                                </div>
+            {loadingSubmissions ? (
+                <div className="skeleton h-40 w-full"></div>
+            ) : submittedTasks.length > 0 ? (
+                <div className="space-y-4">
+                    {submittedTasks.map((sub) => {
+                        const isWinner = selectedContestData?.winnerId?.toString() === sub.userId._id.toString();
+                        return (
+                            <div key={sub._id} className={`card bg-white shadow ${isWinner ? 'ring-2 ring-yellow-400' : ''}`}>
+                                <div className="card-body p-6">
+                                    <div className="flex gap-4">
+                                        <img src={sub.userId.photo} alt="" className="w-12 h-12 rounded-full" />
+                                        <div className="flex-1">
+                                            <div className="flex items-center gap-2 mb-1">
+                                                <h3 className="font-bold">{sub.userId.name}</h3>
+                                                {isWinner && <span className="badge badge-warning badge-sm"><FaTrophy /></span>}
+                                            </div>
+                                            <p className="text-sm text-gray-600 mb-3">{sub.userId.email}</p>
+                                            <div className="bg-base-100 p-3 rounded">
+                                                <p className="text-sm">{sub.submittedTask}</p>
                                             </div>
                                         </div>
+                                        {!hasWinner && isExpired && (
+                                            <button
+                                                onClick={() => handleDeclareWinner(sub._id)}
+                                                className="btn btn-warning btn-sm"
+                                                disabled={declareWinnerMutation.isPending}
+                                            >
+                                                <FaTrophy /> Winner
+                                            </button>
+                                        )}
                                     </div>
-                                );
-                            })}
-                        </div>
-                    ) : (
-                        <div className="card bg-white shadow-lg">
-                            <div className="card-body text-center py-12">
-                                <div className="text-6xl mb-4">📭</div>
-                                <h3 className="text-2xl font-bold text-gray-900 mb-2">No Submissions Yet</h3>
-                                <p className="text-gray-600">
-                                    Participants haven't submitted their tasks yet
-                                </p>
+                                </div>
                             </div>
-                        </div>
-                    )}
-                </>
-            )}
-
-            {/* No Contest Selected */}
-            {!selectedContest && !loadingContests && (
-                <div className="card bg-white shadow-lg">
-                    <div className="card-body text-center py-12">
-                        <div className="text-6xl mb-4">🎯</div>
-                        <h3 className="text-2xl font-bold text-gray-900 mb-2">Select a Contest</h3>
-                        <p className="text-gray-600">
-                            Choose a contest from the dropdown to view its submissions
-                        </p>
-                    </div>
+                        );
+                    })}
+                </div>
+            ) : selectedContest ? (
+                <div className="text-center py-12">
+                    {/* <p className="text-6xl mb-2">📭</p> */}
+                    <p className="text-gray-600">No submissions yet</p>
+                </div>
+            ) : (
+                <div className="text-center py-12">
+                    <p className="text-6xl mb-2"><FiTarget /></p>
+                    <p className="text-gray-600">Select a contest to view submissions</p>
                 </div>
             )}
         </div>
