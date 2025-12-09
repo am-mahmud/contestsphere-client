@@ -108,7 +108,7 @@ const MyWinning = () => {
                     {contest.description}
                   </p>
 
-                  {/* Prize Display */}
+
                   <div className="bg-linear-to-r from-yellow-50 to-yellow-100 rounded-lg p-4 mb-4">
                     <div className="flex items-center justify-between">
                       <div>
@@ -121,7 +121,6 @@ const MyWinning = () => {
                     </div>
                   </div>
 
-                  {/* Won Date */}
                   <div className="text-sm text-gray-600 mb-4">
                     <p>
                       Won on:{' '}
@@ -133,7 +132,6 @@ const MyWinning = () => {
                     </p>
                   </div>
 
-                  {/* Actions */}
                   <div className="card-actions justify-end">
                     <Link
                       to={`/contest/${contest._id}`}
