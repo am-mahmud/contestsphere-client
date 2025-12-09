@@ -14,7 +14,7 @@ const Register = () => {
 
     const onSubmit = async (data) => {
         try {
-            // Use default image if photo field is empty
+           
             const photoUrl = data.photo && data.photo.trim() !== '' ? data.photo : defaultUserImg;
             
             await registerUser(data.name, data.email, data.password, photoUrl);
@@ -59,13 +59,12 @@ const Register = () => {
         <div className="min-h-screen flex items-center justify-center bg-base-200 py-12 px-4 sora">
             <div className="card w-full max-w-md bg-base-100 rounded-3xl border border-base-300">
                 <div className="card-body">
-                    {/* Logo */}
                     <div className="text-center mb-6">
                         <Logo/>
                         <h2 className="text-xl font-bold text-base-content mt-2">Welcome!</h2>
                     </div>
 
-                    {/* Tabs */}
+                 
                     <div className="flex justify-center gap-8 mb-8">
                         <Link to="/login" className="text-lg font-semibold text-base-content/60 pb-2">
                             Sign In
@@ -75,7 +74,7 @@ const Register = () => {
                         </button>
                     </div>
 
-                    {/* Google Sign In Button */}
+                 
                     <button
                         onClick={handleGoogleSignIn}
                         className="btn btn-outline w-full rounded-full gap-2 mb-4"
@@ -84,7 +83,7 @@ const Register = () => {
                         Register with Google
                     </button>
 
-                    {/* Email/Password Form Button */}
+                   
                     <button
                         onClick={() => document.getElementById('register_form').classList.toggle('hidden')}
                         className="btn btn-outline w-full rounded-full gap-2 mb-4"
@@ -93,7 +92,7 @@ const Register = () => {
                         Register with Email
                     </button>
 
-                    {/* Register Form (Initially Hidden) */}
+                   \
                     <form id="register_form" className="hidden" onSubmit={handleSubmit(onSubmit)}>
                         <div className="form-control mb-4">
                             <input
@@ -164,9 +163,6 @@ const Register = () => {
                             {errors.photo && (
                                 <span className="text-error text-sm mt-1 ml-4">{errors.photo.message}</span>
                             )}
-                            <span className="text-xs text-base-content/60 mt-1 ml-4">
-                                Leave empty to use default avatar
-                            </span>
                         </div>
 
                         <button type="submit" className="btn bg-[#20beff] w-full rounded-full">
@@ -174,7 +170,7 @@ const Register = () => {
                         </button>
                     </form>
 
-                    {/* Login Link */}
+                   
                     <p className="text-center mt-6 text-base-content/70">
                         Have an account?{' '}
                         <Link to="/login" className="text-[#20beff] font-semibold hover:underline">
