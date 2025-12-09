@@ -71,7 +71,6 @@ const Leaderboard = () => {
 
                   return (
                     <tr key={user._id} className={rank <= 3 ? 'bg-base-200' : ''}>
-                      {/* Rank */}
                       <td className="font-bold text-lg">
                         {rank === 1 && <FaTrophy className="inline text-yellow-500 mr-2" />}
                         {rank === 2 && <FaTrophy className="inline text-gray-400 mr-2" />}
