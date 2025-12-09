@@ -4,6 +4,7 @@ import Swal from 'sweetalert2';
 import { useState } from 'react';
 import { FaTrophy } from 'react-icons/fa';
 import { FiTarget } from 'react-icons/fi';
+import { CiInboxIn } from 'react-icons/ci';
 
 const SubmittedTasks = () => {
     const queryClient = useQueryClient();
@@ -116,12 +117,12 @@ const SubmittedTasks = () => {
                 </div>
             ) : selectedContest ? (
                 <div className="text-center py-12">
-                    {/* <p className="text-6xl mb-2">📭</p> */}
+                    <p className="text-6xl mb-2 flex justify-center items-center"><CiInboxIn /></p>
                     <p className="text-gray-600">No submissions yet</p>
                 </div>
             ) : (
                 <div className="text-center py-12">
-                    <p className="text-6xl mb-2"><FiTarget /></p>
+                    <p className="text-6xl mb-2 flex items-center justify-center"><FiTarget /></p>
                     <p className="text-gray-600">Select a contest to view submissions</p>
                 </div>
             )}
