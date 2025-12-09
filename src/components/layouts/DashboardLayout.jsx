@@ -14,6 +14,7 @@ import {
 } from 'react-icons/fa';
 import { MdDashboard } from 'react-icons/md';
 import Swal from 'sweetalert2';
+import defaultUserImg from '../../assets/images/defultUser.png';
 
 const DashboardLayout = () => {
   const { user, logout } = useAuth();
@@ -109,7 +110,7 @@ const DashboardLayout = () => {
             <div className="flex-none">
               <div className="avatar">
                 <div className="w-10 rounded-full">
-                  <img src={user?.photo || 'https://via.placeholder.com/40'} alt={user?.name} />
+                 <img src={user?.photo || defaultUserImg} alt={user?.name} />
                 </div>
               </div>
             </div>
@@ -127,11 +128,11 @@ const DashboardLayout = () => {
           <div className="menu p-4 w-80 min-h-full bg-base-100 text-base-content">
             {/* Sidebar Header */}
             <div className="mb-8 p-4">
-              <h2 className="text-2xl font-bold text-[#20beff] mb-2">🌐 ContestSphere</h2>
+              <h2 className="text-2xl font-bold text-[#20beff] mb-2">ContestSphere</h2>
               <div className="flex items-center gap-3 mt-4 p-3 bg-base-200 rounded-lg">
                 <div className="avatar">
                   <div className="w-12 rounded-full">
-                    <img src={user?.photo || 'https://via.placeholder.com/48'} alt={user?.name} />
+                    <img src={user?.photo || defaultUserImg} alt={user?.name} />
                   </div>
                 </div>
                 <div className="flex-1">
