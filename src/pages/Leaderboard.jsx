@@ -15,7 +15,9 @@ const Leaderboard = () => {
     },
   });
 
-  const filteredUsers = users?.filter((user) =>
+  const participants = users?.filter(user => user.participationCount > 0);
+
+  const filteredUsers = participants?.filter((user) =>
     user.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
@@ -48,7 +50,6 @@ const Leaderboard = () => {
         </div>
       )}
 
-      {/* List */}
       {filteredUsers && filteredUsers.length > 0 && (
         <div className="max-w-3xl mx-auto">
           <div className="bg-white rounded-lg shadow overflow-hidden">
@@ -83,7 +84,13 @@ const Leaderboard = () => {
                         <div className="flex items-center gap-3">
                           <div className="avatar">
                             <div className="w-10 h-10 rounded-full">
-                              <img src={user.photo} alt={""} />
+                              <img 
+                                src={user.photo || '/default-avatar.png'} 
+                                alt={user.name}
+                                onError={(e) => {
+                                  e.target.src = '/default-avatar.png';
+                                }}
+                              />
                             </div>
                           </div>
                           <div>
@@ -112,10 +119,10 @@ const Leaderboard = () => {
       
       {filteredUsers && filteredUsers.length === 0 && (
         <div className="text-center py-12">
-          <div className="text-6xl mb-4"><FaMagnifyingGlass /></div>
-          <h3 className="text-2xl font-bold mb-2">No Users Found</h3>
+          <div className="text-6xl mb-4 flex items-center justify-center"><FaMagnifyingGlass /></div>
+          <h3 className="text-2xl font-bold mb-2">No Participants Found</h3>
           <p className="text-gray-600">
-            {searchQuery ? `No matches for "${searchQuery}"` : 'No users yet'}
+            {searchQuery ? `No matches for "${searchQuery}"` : 'No contest participants yet'}
           </p>
         </div>
       )}
