@@ -141,7 +141,7 @@ const SubmittedTasks = () => {
                 </div>
             )}
 
-            {/* Submissions List */}
+    
             {selectedContest && (
                 <>
                     {loadingSubmissions ? (
