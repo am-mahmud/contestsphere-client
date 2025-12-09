@@ -83,7 +83,6 @@ const Navbar = () => {
     }
   };
 
-  // Links 
   const links = (
     <div className="flex flex-col lg:flex-row gap-2 lg:gap-6">
       <SphereLink to="/">Home</SphereLink>
@@ -122,7 +121,7 @@ const Navbar = () => {
               <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
                 <div className="w-10 rounded-full">
                   <img
-                    src={user.photo || 'https://ui-avatars.com/api/?name=' + user.name}
+                    src={user.photo || 'https://i.ibb.co.com/nsD8dcGf/user.png' + user.name}
                     alt={user.name}
                   />
                 </div>

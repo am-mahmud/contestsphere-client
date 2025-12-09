@@ -9,7 +9,6 @@ const AllContests = () => {
   const [activeTab, setActiveTab] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
 
-  // Contest types for tabs
   const contestTypes = [
     { id: 'all', label: 'All Contests' },
     { id: 'Image Design', label: 'Image Design' },
@@ -18,7 +17,6 @@ const AllContests = () => {
     { id: 'Business Ideas', label: 'Business Ideas' },
   ];
 
-  // Fetch contests with filters
   const { data, isLoading, error } = useQuery({
     queryKey: ['allContests', activeTab, searchQuery],
     queryFn: () => {
@@ -35,7 +33,6 @@ const AllContests = () => {
 
   return (
     <div className="container mx-auto px-4 lg:px-8 py-16">
-      {/* Header */}
       <div className="text-center mb-12">
         <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
           All Contests
@@ -45,7 +42,6 @@ const AllContests = () => {
         </p>
       </div>
 
-      {/* Search Bar */}
       <div className="max-w-2xl mx-auto mb-8">
         <div className="relative">
           <input
@@ -59,7 +55,6 @@ const AllContests = () => {
         </div>
       </div>
 
-      {/* Contest Type Tabs */}
       <div className="flex flex-wrap justify-center gap-2 mb-12">
         {contestTypes.map((type) => (
           <button
