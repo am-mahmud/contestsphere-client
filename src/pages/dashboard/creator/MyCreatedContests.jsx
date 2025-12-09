@@ -8,7 +8,6 @@ import api from '../../../utils/api';
 const MyCreatedContests = () => {
   const queryClient = useQueryClient();
 
-  // Fetch creator's contests
   const { data: contests, isLoading, error } = useQuery({
     queryKey: ['myCreatedContests'],
     queryFn: async () => {
@@ -17,7 +16,6 @@ const MyCreatedContests = () => {
     },
   });
 
-  // Delete mutation
   const deleteMutation = useMutation({
     mutationFn: contestAPI.deleteContest,
     onSuccess: () => {
@@ -66,7 +64,6 @@ const MyCreatedContests = () => {
 
   return (
     <div>
-      {/* Header */}
       <div className="mb-8 flex justify-between items-center">
         <div>
           <h1 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-2">
@@ -79,7 +76,6 @@ const MyCreatedContests = () => {
         </Link>
       </div>
 
-      {/* Loading State */}
       {isLoading && (
         <div className="space-y-4">
           {[...Array(3)].map((_, i) => (
