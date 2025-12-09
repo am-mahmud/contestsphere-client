@@ -5,6 +5,7 @@ import Swal from 'sweetalert2';
 import { FcGoogle } from 'react-icons/fc';
 import { MdEmail } from 'react-icons/md';
 import Logo from '../../components/shared/Logo';
+import defaultUserImg from '../../assets/images/defultUser.png';
 
 const Register = () => {
     const { register: registerForm, handleSubmit, formState: { errors }, watch } = useForm();
@@ -13,7 +14,10 @@ const Register = () => {
 
     const onSubmit = async (data) => {
         try {
-            await registerUser(data.name, data.email, data.password, data.photo);
+            // Use default image if photo field is empty
+            const photoUrl = data.photo && data.photo.trim() !== '' ? data.photo : defaultUserImg;
+            
+            await registerUser(data.name, data.email, data.password, photoUrl);
             Swal.fire({
                 icon: 'success',
                 title: 'Success!',
@@ -148,7 +152,7 @@ const Register = () => {
                         <div className="form-control mb-6">
                             <input
                                 type="url"
-                                placeholder="Photo URL"
+                                placeholder="Photo URL (Optional)"
                                 className="input input-bordered w-full rounded-full"
                                 {...registerForm('photo', {
                                     pattern: {
@@ -158,8 +162,11 @@ const Register = () => {
                                 })}
                             />
                             {errors.photo && (
-                                <span className="text-error  text-sm mt-1 ml-4">{errors.photo.message}</span>
+                                <span className="text-error text-sm mt-1 ml-4">{errors.photo.message}</span>
                             )}
+                            <span className="text-xs text-base-content/60 mt-1 ml-4">
+                                Leave empty to use default avatar
+                            </span>
                         </div>
 
                         <button type="submit" className="btn bg-[#20beff] w-full rounded-full">
