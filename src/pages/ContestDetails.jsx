@@ -1,5 +1,4 @@
 import { useParams, useNavigate } from 'react-router';
-import { useQuery } from '@tanstack/react-query';
 import { contestAPI } from '../api/contest';
 import { useAuth } from '../contexts/AuthContext';
 import { FaUsers, FaTrophy, FaClock, FaCalendarAlt } from 'react-icons/fa';
@@ -9,19 +8,32 @@ const ContestDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { user } = useAuth();
+
+  const [contest, setContest] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const [timeLeft, setTimeLeft] = useState('');
 
-  // Fetch contest details
-  const { data: contest, isLoading, error } = useQuery({
-    queryKey: ['contest', id],
-    queryFn: () => contestAPI.getContest(id),
-  });
+  useEffect(() => {
+    const fetchContest = async () => {
+      try {
+        setLoading(true);
+        const data = await contestAPI.getContest(id);
+        setContest(data);
+      } catch (err) {
+        setError(err);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  // Countdown timer
+    fetchContest();
+  }, [id]);
+
   useEffect(() => {
     if (!contest) return;
 
-    const calculateTimeLeft = () => {
+    const updateTimer = () => {
       const deadline = new Date(contest.deadline);
       const now = new Date();
       const diff = deadline - now;
@@ -39,29 +51,14 @@ const ContestDetails = () => {
       setTimeLeft(`${days}d ${hours}h ${minutes}m ${seconds}s`);
     };
 
-    calculateTimeLeft();
-    const timer = setInterval(calculateTimeLeft, 1000);
+    updateTimer();
+    const timer = setInterval(updateTimer, 1000);
 
     return () => clearInterval(timer);
   }, [contest]);
 
-  // Handle registration
-  const handleRegister = () => {
-    if (!user) {
-      navigate('/login');
-      return;
-    }
-    // TODO: Navigate to payment page
-    alert('Payment integration coming soon!');
-  };
 
-  // Handle task submission
-  const handleSubmitTask = () => {
-    // TODO: Open submit task modal
-    alert('Task submission coming soon!');
-  };
-
-  if (isLoading) {
+  if (loading) {
     return (
       <div className="container mx-auto px-4 lg:px-8 py-16">
         <div className="animate-pulse space-y-6">
@@ -89,175 +86,78 @@ const ContestDetails = () => {
   const isExpired = new Date(contest.deadline) < new Date();
 
   return (
-    <div className="container mx-auto px-4 lg:px-8 py-16">
-      {/* Contest Header */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
-        {/* Left Column - Image and Basic Info */}
+    <div className="container mx-auto px-4 py-16">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <div className="lg:col-span-2">
-          {/* Image */}
           <div className="relative rounded-2xl overflow-hidden mb-6 h-96">
-            <img
-              src={contest.image}
-              alt={contest.name}
-              className="w-full h-full object-cover"
-            />
-            <div className="absolute top-4 left-4 bg-[#20beff] text-white px-4 py-2 rounded-full font-semibold">
-              {contest.contestType}
-            </div>
-            {isExpired && (
-              <div className="absolute top-4 right-4 bg-red-500 text-white px-4 py-2 rounded-full font-semibold">
-                Contest Ended
-              </div>
-            )}
+            <img src={contest.image} alt="" className="w-full h-full object-cover" />
+            <div className="absolute top-4 left-4 bg-[#20beff] text-white px-4 py-2 rounded-full font-semibold text-sm">{contest.contestType}</div>
+            {isExpired && <div className="absolute top-4 right-4 bg-red-500 text-white px-4 py-2 rounded-full font-semibold text-sm">Ended</div>}
           </div>
 
-          {/* Title */}
-          <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
-            {contest.name}
-          </h1>
+          <h1 className="text-4xl font-bold text-gray-900 mb-4">{contest.name}</h1>
 
-          {/* Stats */}
-          <div className="flex flex-wrap gap-6 mb-8">
-            <div className="flex items-center gap-2 text-gray-600">
-              <FaUsers className="text-[#20beff] text-xl" />
-              <span className="font-semibold">{contest.participantCount}</span> Participants
-            </div>
-            <div className="flex items-center gap-2 text-gray-600">
-              <FaTrophy className="text-yellow-500 text-xl" />
-              <span className="font-semibold">${contest.prizeMoney}</span> Prize Money
-            </div>
-            <div className="flex items-center gap-2 text-gray-600">
-              <FaCalendarAlt className="text-[#20beff] text-xl" />
-              <span>Entry: <span className="font-semibold">${contest.price}</span></span>
-            </div>
+          <div className="flex flex-wrap gap-6 mb-8 text-gray-600">
+            <div className="flex items-center gap-2"><FaUsers className="text-[#20beff]" /><span className="font-semibold">{contest.participantCount}</span> Participants</div>
+            <div className="flex items-center gap-2"><FaTrophy className="text-yellow-500" /><span className="font-semibold">${contest.prizeMoney}</span></div>
+            <div className="flex items-center gap-2"><FaCalendarAlt className="text-[#20beff]" />Entry: <span className="font-semibold">${contest.price}</span></div>
           </div>
 
-          {/* Description */}
           <div className="bg-white rounded-2xl p-6 shadow-md mb-6">
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">About This Contest</h2>
-            <p className="text-gray-700 whitespace-pre-line leading-relaxed">
-              {contest.description}
-            </p>
+            <h2 className="text-2xl font-bold mb-4">About</h2>
+            <p className="text-gray-700 whitespace-pre-line">{contest.description}</p>
           </div>
 
-          {/* Task Instructions */}
           <div className="bg-white rounded-2xl p-6 shadow-md mb-6">
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">Task Instructions</h2>
-            <p className="text-gray-700 whitespace-pre-line leading-relaxed">
-              {contest.taskInstruction}
-            </p>
+            <h2 className="text-2xl font-bold mb-4">Instructions</h2>
+            <p className="text-gray-700 whitespace-pre-line">{contest.taskInstruction}</p>
           </div>
 
-          {/* Winner Section (if declared) */}
           {contest.winnerId && (
-            <div className="bg-linear-to-r from-yellow-50 to-yellow-100 rounded-2xl p-6 shadow-md">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-2">
-                <FaTrophy className="text-yellow-500" /> Winner Announced!
-              </h2>
+            <div className="bg-linear-to-r from-yellow-50 to-yellow-100 rounded-2xl p-6">
+              <h2 className="text-2xl font-bold mb-4 flex items-center gap-2"><FaTrophy className="text-yellow-500" /> Winner!</h2>
               <div className="flex items-center gap-4">
-                <img
-                  src={contest.winnerId.photo}
-                  alt={contest.winnerId.name}
-                  className="w-16 h-16 rounded-full"
-                />
+                <img src={contest.winnerId.photo} alt="" className="w-16 h-16 rounded-full" />
                 <div>
-                  <p className="font-bold text-xl text-gray-900">{contest.winnerId.name}</p>
-                  <p className="text-gray-600">Congratulations on winning ${contest.prizeMoney}!</p>
+                  <p className="font-bold text-xl">{contest.winnerId.name}</p>
+                  <p className="text-gray-600">Won ${contest.prizeMoney}!</p>
                 </div>
               </div>
             </div>
           )}
         </div>
 
-        {/* Right Column - Sidebar */}
         <div className="lg:col-span-1">
           <div className="bg-white rounded-2xl p-6 shadow-lg sticky top-24">
-            {/* Countdown Timer */}
             <div className="mb-6">
-              <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-2">
-                Time Remaining
-              </h3>
-              <div className={`text-3xl font-bold ${isExpired ? 'text-red-500' : 'text-[#20beff]'}`}>
-                {timeLeft}
-              </div>
+              <h3 className="text-xs font-semibold text-gray-500 uppercase mb-2">Time Left</h3>
+              <div className={`text-3xl font-bold ${isExpired ? 'text-red-500' : 'text-[#20beff]'}`}>{timeLeft}</div>
             </div>
-
             <div className="divider"></div>
 
-            {/* Deadline */}
             <div className="mb-6">
-              <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-2">
-                Deadline
-              </h3>
-              <p className="text-lg font-semibold text-gray-900">
-                {new Date(contest.deadline).toLocaleDateString('en-US', {
-                  weekday: 'long',
-                  year: 'numeric',
-                  month: 'long',
-                  day: 'numeric',
-                  hour: '2-digit',
-                  minute: '2-digit',
-                })}
-              </p>
+              <h3 className="text-xs font-semibold text-gray-500 uppercase mb-2">Deadline</h3>
+              <p className="font-semibold">{new Date(contest.deadline).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}</p>
             </div>
-
             <div className="divider"></div>
 
-            {/* Creator Info */}
             {contest.creatorId && (
               <div className="mb-6">
-                <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-3">
-                  Contest Creator
-                </h3>
+                <h3 className="text-xs font-semibold text-gray-500 uppercase mb-3">Creator</h3>
                 <div className="flex items-center gap-3">
-                  <img
-                    src={contest.creatorId.photo}
-                    alt={contest.creatorId.name}
-                    className="w-10 h-10 rounded-full"
-                  />
-                  <div>
-                    <p className="font-semibold text-gray-900">{contest.creatorId.name}</p>
-                  </div>
+                  <img src={contest.creatorId.photo} alt="" className="w-10 h-10 rounded-full" />
+                  <p className="font-semibold">{contest.creatorId.name}</p>
                 </div>
               </div>
             )}
-
             <div className="divider"></div>
 
-            {/* Action Buttons */}
             <div className="space-y-3">
-              <button
-                onClick={handleRegister}
-                disabled={isExpired}
-                className={`btn w-full rounded-full ${
-                  isExpired
-                    ? 'btn-disabled bg-gray-300'
-                    : 'bg-gray-900 hover:bg-[#20beff] text-white border-gray-900 hover:border-[#20beff]'
-                }`}
-              >
-                {isExpired ? 'Contest Ended' : 'Register & Pay'}
+              <button onClick={() => !user ? navigate('/login') : alert('Payment coming soon!')} disabled={isExpired} className={`btn w-full rounded-full ${isExpired ? 'btn-disabled' : 'bg-gray-900 hover:bg-[#20beff] text-white'}`}>
+                {isExpired ? 'Ended' : 'Register & Pay'}
               </button>
-
-              {user && !isExpired && (
-                <button
-                  onClick={handleSubmitTask}
-                  className="btn btn-outline w-full rounded-full border-[#20beff] text-[#20beff] hover:bg-[#20beff] hover:text-white"
-                >
-                  Submit Task
-                </button>
-              )}
-
-              {!user && (
-                <p className="text-center text-sm text-gray-600">
-                  <button
-                    onClick={() => navigate('/login')}
-                    className="text-[#20beff] hover:underline font-semibold"
-                  >
-                    Login
-                  </button>{' '}
-                  to participate
-                </p>
-              )}
+              {user && !isExpired && <button onClick={() => alert('Submission coming soon!')} className="btn btn-outline w-full rounded-full border-[#20beff] text-[#20beff] hover:bg-[#20beff] hover:text-white">Submit Task</button>}
+              {!user && <p className="text-center text-sm text-gray-600"><button onClick={() => navigate('/login')} className="text-[#20beff] hover:underline font-semibold">Login</button> to join</p>}
             </div>
           </div>
         </div>
