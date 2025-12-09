@@ -1,5 +1,4 @@
-import { useState } from 'react';
-import { useQuery } from '@tanstack/react-query';
+import { useState, useEffect } from 'react';
 import { contestAPI } from '../api/contest';
 import ContestCard from '../components/contest/ContestCard';
 import { FiSearch } from 'react-icons/fi';
@@ -8,6 +7,9 @@ import { FaMagnifyingGlass } from 'react-icons/fa6';
 const AllContests = () => {
   const [activeTab, setActiveTab] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
+  const [data, setData] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   const contestTypes = [
     { id: 'all', label: 'All Contests' },
@@ -17,19 +19,29 @@ const AllContests = () => {
     { id: 'Business Ideas', label: 'Business Ideas' },
   ];
 
-  const { data, isLoading, error } = useQuery({
-    queryKey: ['allContests', activeTab, searchQuery],
-    queryFn: () => {
-      const params = {};
-      if (activeTab !== 'all') {
-        params.contestType = activeTab;
+  useEffect(() => {
+    const fetchContests = async () => {
+      setIsLoading(true);
+      setError(null);
+      try {
+        const params = {};
+        if (activeTab !== 'all') {
+          params.contestType = activeTab;
+        }
+        if (searchQuery) {
+          params.search = searchQuery;
+        }
+        const result = await contestAPI.getAllContests(params);
+        setData(result);
+      } catch (err) {
+        setError(err);
+      } finally {
+        setIsLoading(false);
       }
-      if (searchQuery) {
-        params.search = searchQuery;
-      }
-      return contestAPI.getAllContests(params);
-    },
-  });
+    };
+
+    fetchContests();
+  }, [activeTab, searchQuery]);
 
   return (
     <div className="container mx-auto px-4 lg:px-8 py-16">
@@ -71,7 +83,6 @@ const AllContests = () => {
         ))}
       </div>
 
-      {/* Results Count */}
       {data && (
         <div className="mb-6 text-gray-600">
           Found <span className="font-semibold">{data.total}</span> contest
@@ -79,7 +90,6 @@ const AllContests = () => {
         </div>
       )}
 
-      {/* Loading State */}
       {isLoading && (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {[...Array(6)].map((_, i) => (
@@ -88,14 +98,12 @@ const AllContests = () => {
         </div>
       )}
 
-      {/* Error State */}
       {error && (
         <div className="alert alert-error max-w-2xl mx-auto">
           <span>Failed to load contests. Please try again later.</span>
         </div>
       )}
 
-      {/* Contests Grid */}
       {data && data.contests && data.contests.length > 0 && (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {data.contests.map((contest) => (
@@ -104,16 +112,15 @@ const AllContests = () => {
         </div>
       )}
 
-      {/* No Results */}
       {data && data.contests && data.contests.length === 0 && (
         <div className="text-center flex flex-col items-center justify-center py-12">
           <div className="text-6xl mb-4"><FaMagnifyingGlass /></div>
           <h3 className="text-2xl font-bold text-gray-900 mb-2">
             No contests found
-          </h3> 
+          </h3>
           <p className="text-gray-600 mb-6">
             {searchQuery
-              ? `No contests match "${searchQuery}". Try a different search.`
+              ? `No contests match. Try a different search.`
               : 'No contests available in this category yet.'}
           </p>
           {searchQuery && (
