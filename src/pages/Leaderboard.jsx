@@ -78,12 +78,11 @@ const Leaderboard = () => {
                         #{rank}
                       </td>
 
-                      {/* User */}
                       <td>
                         <div className="flex items-center gap-3">
                           <div className="avatar">
                             <div className="w-10 h-10 rounded-full">
-                              <img src={user.photo} alt={user.name} />
+                              <img src={user.photo} alt={""} />
                             </div>
                           </div>
                           <div>
@@ -93,15 +92,12 @@ const Leaderboard = () => {
                         </div>
                       </td>
 
-                      {/* Wins */}
                       <td className="text-center font-bold text-green-600">
                         {user.winCount}
                       </td>
 
-                      {/* Contests */}
                       <td className="text-center">{user.participationCount}</td>
-
-                      {/* Win Rate */}
+                      
                       <td className="text-center font-semibold">{winRate}%</td>
                     </tr>
                   );
