@@ -1,23 +1,20 @@
 import { useQuery } from '@tanstack/react-query';
 import { participationAPI } from '../../../api/participation';
 import { Link } from 'react-router';
-import { FaTrophy, FaClock, FaCalendarAlt } from 'react-icons/fa';
+import { FaTrophy, FaClock, FaCalendarAlt, FaRegClipboard } from 'react-icons/fa';
 
 const MyParticipated = () => {
-  // Fetch participated contests
   const { data, isLoading, error } = useQuery({
     queryKey: ['myParticipations'],
     queryFn: participationAPI.getMyParticipations,
   });
 
-  // Sort by deadline (upcoming first)
   const sortedContests = data?.sort((a, b) => {
     return new Date(a.contest?.deadline) - new Date(b.contest?.deadline);
   });
 
   return (
     <div>
-      {/* Header */}
       <div className="mb-8">
         <h1 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-2">
           My Participated Contests
@@ -25,7 +22,6 @@ const MyParticipated = () => {
         <p className="text-gray-600">Track all contests you've registered for</p>
       </div>
 
-      {/* Loading State */}
       {isLoading && (
         <div className="space-y-4">
           {[...Array(3)].map((_, i) => (
@@ -34,18 +30,16 @@ const MyParticipated = () => {
         </div>
       )}
 
-      {/* Error State */}
       {error && (
         <div className="alert alert-error">
           <span>Failed to load your contests. Please try again.</span>
         </div>
       )}
 
-      {/* Empty State */}
       {!isLoading && sortedContests && sortedContests.length === 0 && (
         <div className="card bg-white shadow-lg">
           <div className="card-body text-center py-12">
-            <div className="text-6xl mb-4">📋</div>
+            <div className="text-6xl mb-4 flex items-center justify-center"><FaRegClipboard /></div>
             <h3 className="text-2xl font-bold text-gray-900 mb-2">
               No Participated Contests Yet
             </h3>
@@ -59,7 +53,6 @@ const MyParticipated = () => {
         </div>
       )}
 
-      {/* Contest List */}
       {sortedContests && sortedContests.length > 0 && (
         <div className="space-y-4">
           {sortedContests.map((participation) => {
@@ -76,7 +69,6 @@ const MyParticipated = () => {
               >
                 <div className="card-body">
                   <div className="flex flex-col lg:flex-row gap-6">
-                    {/* Contest Image */}
                     <div className="w-full lg:w-48 h-32 rounded-lg overflow-hidden shrink-0">
                       <img
                         src={contest.image}
@@ -85,7 +77,6 @@ const MyParticipated = () => {
                       />
                     </div>
 
-                    {/* Contest Info */}
                     <div className="grow">
                       <div className="flex items-start justify-between mb-2">
                         <div>
@@ -108,7 +99,6 @@ const MyParticipated = () => {
                         </div>
                       </div>
 
-                      {/* Stats */}
                       <div className="flex flex-wrap gap-4 text-sm text-gray-600 mb-4">
                         <div className="flex items-center gap-1">
                           <FaCalendarAlt className="text-[#20beff]" />
@@ -136,7 +126,6 @@ const MyParticipated = () => {
                         )}
                       </div>
 
-                      {/* Actions */}
                       <div className="flex flex-wrap gap-2">
                         <Link
                           to={`/contest/${contest._id}`}
