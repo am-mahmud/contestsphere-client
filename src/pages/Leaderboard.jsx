@@ -6,7 +6,6 @@ import { useState } from 'react';
 const Leaderboard = () => {
   const [searchQuery, setSearchQuery] = useState('');
 
-  // Fetch leaderboard
   const { data: users, isLoading, error } = useQuery({
     queryKey: ['leaderboard'],
     queryFn: async () => {
@@ -15,20 +14,17 @@ const Leaderboard = () => {
     },
   });
 
-  // Filter users
   const filteredUsers = users?.filter((user) =>
     user.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   return (
     <div className="container mx-auto px-4 lg:px-8 py-16">
-      {/* Header */}
       <div className="text-center mb-12">
         <h1 className="text-4xl font-bold mb-2">Leaderboard</h1>
         <p className="text-gray-600">Top performers ranked by contest wins</p>
       </div>
 
-      {/* Search */}
       <div className="max-w-2xl mx-auto mb-8">
         <input
           type="text"
@@ -39,14 +35,12 @@ const Leaderboard = () => {
         />
       </div>
 
-      {/* Loading */}
       {isLoading && (
         <div className="flex justify-center py-12">
           <span className="loading loading-spinner loading-lg"></span>
         </div>
       )}
 
-      {/* Error */}
       {error && (
         <div className="alert alert-error max-w-2xl mx-auto">
           <span>Failed to load leaderboard</span>
