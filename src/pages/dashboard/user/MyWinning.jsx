@@ -4,28 +4,24 @@ import { Link } from 'react-router';
 import { FaTrophy, FaMedal, FaCrown } from 'react-icons/fa';
 
 const MyWinning = () => {
-  // Fetch winning contests
   const { data, isLoading, error } = useQuery({
     queryKey: ['myWinnings'],
     queryFn: participationAPI.getMyWinnings,
   });
 
-  // Calculate total winnings
   const totalWinnings = data?.reduce((sum, win) => {
     return sum + (win.contest?.prizeMoney || 0);
   }, 0);
 
   return (
     <div>
-      {/* Header */}
       <div className="mb-8">
         <h1 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-2">
-          My Winning Contests 🏆
+          My Winning Contests 
         </h1>
         <p className="text-gray-600">Celebrate your achievements and victories!</p>
       </div>
 
-      {/* Total Winnings Card */}
       {data && data.length > 0 && (
         <div className="card bg-linear-to-r from-yellow-400 to-yellow-600 text-white shadow-xl mb-8">
           <div className="card-body">
@@ -40,8 +36,6 @@ const MyWinning = () => {
           </div>
         </div>
       )}
-
-      {/* Loading State */}
       {isLoading && (
         <div className="space-y-4">
           {[...Array(3)].map((_, i) => (
@@ -49,19 +43,16 @@ const MyWinning = () => {
           ))}
         </div>
       )}
-
-      {/* Error State */}
       {error && (
         <div className="alert alert-error">
           <span>Failed to load your winning contests. Please try again.</span>
         </div>
       )}
 
-      {/* Empty State */}
       {!isLoading && data && data.length === 0 && (
         <div className="card bg-white shadow-lg">
           <div className="card-body text-center py-12">
-            <div className="text-6xl mb-4">🏆</div>
+            <div className="text-6xl mb-4 flex items-center justify-center"><FaTrophy /></div>
             <h3 className="text-2xl font-bold text-gray-900 mb-2">
               No Wins Yet
             </h3>
@@ -75,7 +66,6 @@ const MyWinning = () => {
         </div>
       )}
 
-      {/* Winning Contests Grid */}
       {data && data.length > 0 && (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {data.map((win, index) => {
@@ -87,7 +77,6 @@ const MyWinning = () => {
                 key={win._id}
                 className="card bg-white shadow-lg hover:shadow-xl transition-shadow relative overflow-hidden"
               >
-                {/* Winner Badge */}
                 <div className="absolute top-4 right-4 z-10">
                   {index === 0 ? (
                     <div className="bg-yellow-400 text-yellow-900 px-3 py-1 rounded-full font-bold text-sm flex items-center gap-1">
@@ -100,7 +89,6 @@ const MyWinning = () => {
                   )}
                 </div>
 
-                {/* Contest Image */}
                 <figure className="h-48">
                   <img
                     src={contest.image}
