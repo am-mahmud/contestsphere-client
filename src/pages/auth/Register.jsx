@@ -92,7 +92,6 @@ const Register = () => {
                         Register with Email
                     </button>
 
-                   \
                     <form id="register_form" className="hidden" onSubmit={handleSubmit(onSubmit)}>
                         <div className="form-control mb-4">
                             <input
