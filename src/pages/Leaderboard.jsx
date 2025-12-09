@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import api from '../utils/api';
 import { FaTrophy } from 'react-icons/fa';
 import { useState } from 'react';
+import { FaMagnifyingGlass } from "react-icons/fa6";
 
 const Leaderboard = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -97,7 +98,7 @@ const Leaderboard = () => {
                       </td>
 
                       <td className="text-center">{user.participationCount}</td>
-                      
+
                       <td className="text-center font-semibold">{winRate}%</td>
                     </tr>
                   );
@@ -108,10 +109,10 @@ const Leaderboard = () => {
         </div>
       )}
 
-      {/* No Results */}
+      
       {filteredUsers && filteredUsers.length === 0 && (
         <div className="text-center py-12">
-          <div className="text-6xl mb-4">🔍</div>
+          <div className="text-6xl mb-4"><FaMagnifyingGlass /></div>
           <h3 className="text-2xl font-bold mb-2">No Users Found</h3>
           <p className="text-gray-600">
             {searchQuery ? `No matches for "${searchQuery}"` : 'No users yet'}
