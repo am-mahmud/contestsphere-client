@@ -1,41 +1,50 @@
 import api from '../utils/api';
 
 export const contestAPI = {
+  getAllContests: async (params = {}) => {
+    const { data } = await api.get('/api/contests', { params });
+    return data;
+  },
 
-    getAllContests: async (params = {}) => {
-        const { data } = await api.get('/api/contests', { params });
-        return data;
-    },
+  getContest: async (id) => {
+    const { data } = await api.get(`/api/contests/${id}`);
+    return data;
+  },
 
-    // Get single contest
-    getContest: async (id) => {
-        const { data } = await api.get(`/api/contests/${id}`);
-        return data;
-    },
+  createContest: async (contestData) => {
+    const { data } = await api.post('/api/contests', contestData);
+    return data;
+  },
 
-    // Create contest
-    createContest: async (contestData) => {
-        const { data } = await api.post('/api/contests', contestData);
-        return data;
-    },
+  updateContest: async (id, contestData) => {
+    const { data } = await api.put(`/api/contests/${id}`, contestData);
+    return data;
+  },
 
-    //Update contest
-    updateContest: async (id, contestData) => {
-        const { data } = await api.put(`/api/contests/${id}`, contestData);
-        return data;
-    },
+  deleteContest: async (id) => {
+    const { data } = await api.delete(`/api/contests/${id}`);
+    return data;
+  },
 
-    // Delete contest
-    deleteContest: async (id) => {
-        const { data } = await api.delete(`/api/contests/${id}`);
-        return data;
-    },
+  getPopularContests: async (limit = 5) => {
+    const { data } = await api.get('/api/contests', {
+      params: { sort: 'popular', limit, status: 'confirmed' }
+    });
+    return data;
+  },
 
-    // Get popular contests (sorted by participants)
-    getPopularContests: async (limit = 4) => {
-        const { data } = await api.get('/api/contests', {
-            params: { sort: 'popular', limit }
-        });
-        return data;
-    },
-}
+  getMyContests: async () => {
+    const { data } = await api.get('/api/contests/creator/my-contests');
+    return data;
+  },
+
+  approveContest: async (id) => {
+    const { data } = await api.put(`/api/contests/${id}/approve`);
+    return data;
+  },
+
+  rejectContest: async (id, reason) => {
+    const { data } = await api.put(`/api/contests/${id}/reject`, { reason });
+    return data;
+  },
+};

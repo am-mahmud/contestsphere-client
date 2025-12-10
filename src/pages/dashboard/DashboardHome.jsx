@@ -5,7 +5,6 @@ import { Link } from 'react-router';
 const DashboardHome = () => {
   const { user } = useAuth();
 
-  // Mock stats - you can fetch real data later
   const getUserStats = () => {
     if (user?.role === 'admin') {
       return [
@@ -25,7 +24,6 @@ const DashboardHome = () => {
       ];
     }
 
-    // Regular user
     return [
       { label: 'Participated', value: user?.participationCount || '0', icon: <FaClipboardList />, color: 'text-blue-500' },
       { label: 'Won Contests', value: user?.winCount || '0', icon: <FaTrophy />, color: 'text-green-500' },
@@ -41,7 +39,7 @@ const DashboardHome = () => {
       {/* Welcome Header */}
       <div className="mb-8">
         <h1 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-2">
-          Welcome back, {user?.name}! 👋
+          Welcome back, {user?.name}!
         </h1>
         <p className="text-gray-600">
           Here's what's happening with your account today.
