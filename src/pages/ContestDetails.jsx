@@ -4,52 +4,68 @@ import { participationAPI } from '../api/participation';
 import { useAuth } from '../contexts/AuthContext';
 import { FaUsers, FaTrophy, FaClock, FaCalendarAlt } from 'react-icons/fa';
 import { useState, useEffect } from 'react';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import Swal from 'sweetalert2';
 import PaymentModal from '../components/contest/PaymentModal';
-import toast from 'react-hot-toast';
 
 const ContestDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { user } = useAuth();
+  const queryClient = useQueryClient();
 
-  const [contest, setContest] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
   const [timeLeft, setTimeLeft] = useState('');
-  const [hasJoined, setHasJoined] = useState(false);
   const [showSubmitModal, setShowSubmitModal] = useState(false);
   const [submittedTask, setSubmittedTask] = useState('');
-  const [submitting, setSubmitting] = useState(false);
 
-  useEffect(() => {
-    const fetchContest = async () => {
-      try {
-        setLoading(true);
-        const data = await contestAPI.getContest(id);
-        setContest(data);
-      
-        if (user) {
-          checkParticipation();
-        }
-      } catch (err) {
-        setError(err);
-      } finally {
-        setLoading(false);
-      }
-    };
+  const {
+    data: contest,
+    isLoading,
+    error
+  } = useQuery({
+    queryKey: ['contest', id],
+    queryFn: () => contestAPI.getContest(id),
+    enabled: !!id,
+    staleTime: 30000
+  });
 
-    fetchContest();
-  }, [id, user]);
+  const {
+    data: participations = [],
+    isLoading: isParticipationsLoading
+  } = useQuery({
+    queryKey: ['myParticipations', user?.id],
+    queryFn: () => participationAPI.getMyParticipations(),
+    enabled: !!user,
+    staleTime: 30000
+  });
 
-  const checkParticipation = async () => {
-    try {
-      const participations = await participationAPI.getMyParticipations();
-      const hasJoinedContest = participations.some(p => p.contestId?._id === id);
-      setHasJoined(hasJoinedContest);
-    } catch (error) {
-      console.error('Error checking participation:', error);
+  const hasJoined = participations.some(p => p.contestId?._id === id);
+
+  const submitTaskMutation = useMutation({
+    mutationFn: (task) => participationAPI.submitTask(id, task),
+    onSuccess: () => {
+      Swal.fire({
+        icon: 'success',
+        title: 'Success!',
+        text: 'Task submitted successfully!',
+        confirmButtonColor: '#20beff',
+        timer: 2000,
+        timerProgressBar: true
+      });
+      setShowSubmitModal(false);
+      setSubmittedTask('');
+      queryClient.invalidateQueries({ queryKey: ['myParticipations'] });
+    },
+    onError: (error) => {
+      Swal.fire({
+        icon: 'error',
+        title: 'Submission Failed',
+        text: error.response?.data?.message || 'Failed to submit task',
+        confirmButtonColor: '#20beff'
+      });
     }
-  };
+  });
+
 
   useEffect(() => {
     if (!contest) return;
@@ -86,39 +102,34 @@ const ContestDetails = () => {
     window.openPaymentModal();
   };
 
-  const handlePaymentSuccess = async () => {
-    toast.success('Successfully joined the contest!');
-    setHasJoined(true);
-    
-    try {
-      const data = await contestAPI.getContest(id);
-      setContest(data);
-    } catch (error) {
-      console.error('Error refreshing contest:', error);
-    }
+  const handlePaymentSuccess = () => {
+    Swal.fire({
+      icon: 'success',
+      title: 'Welcome!',
+      text: 'Successfully joined the contest!',
+      confirmButtonColor: '#20beff',
+      timer: 2000,
+      timerProgressBar: true
+    });
+    queryClient.invalidateQueries({ queryKey: ['myParticipations'] });
+    queryClient.invalidateQueries({ queryKey: ['contest', id] });
   };
 
   const handleSubmitTask = async () => {
     if (!submittedTask.trim()) {
-      toast.error('Please provide your task submission');
+      Swal.fire({
+        icon: 'warning',
+        title: 'Missing Information',
+        text: 'Please provide your task submission',
+        confirmButtonColor: '#20beff'
+      });
       return;
     }
 
-    try {
-      setSubmitting(true);
-      await participationAPI.submitTask(id, submittedTask);
-      toast.success('✅ Task submitted successfully!');
-      setShowSubmitModal(false);
-      setSubmittedTask('');
-    } catch (error) {
-      console.error('Submit error:', error);
-      toast.error(error.response?.data?.message || 'Failed to submit task');
-    } finally {
-      setSubmitting(false);
-    }
+    submitTaskMutation.mutate(submittedTask);
   };
 
-  if (loading) {
+  if (isLoading) {
     return (
       <div className="container mx-auto px-4 lg:px-8 py-16">
         <div className="animate-pulse space-y-6">
@@ -136,7 +147,10 @@ const ContestDetails = () => {
       <div className="container mx-auto px-4 lg:px-8 py-16 text-center">
         <h2 className="text-3xl font-bold text-gray-900 mb-4">Contest Not Found</h2>
         <p className="text-gray-600 mb-6">The contest you're looking for doesn't exist.</p>
-        <button onClick={() => navigate('/allcontests')} className="btn btn-primary rounded-full">
+        <button
+          onClick={() => navigate('/allcontests')}
+          className="btn btn-primary rounded-full"
+        >
           Browse All Contests
         </button>
       </div>
@@ -213,7 +227,11 @@ const ContestDetails = () => {
           <div className="bg-white rounded-2xl p-6 shadow-lg sticky top-24">
             <div className="mb-6">
               <h3 className="text-xs font-semibold text-gray-500 uppercase mb-2">Time Left</h3>
-              <div className={`text-3xl font-bold ${isExpired ? 'text-red-500' : 'text-[#20beff]'}`}>
+              <div
+                className={`text-3xl font-bold ${
+                  isExpired ? 'text-red-500' : 'text-[#20beff]'
+                }`}
+              >
                 {timeLeft}
               </div>
             </div>
@@ -237,7 +255,11 @@ const ContestDetails = () => {
               <div className="mb-6">
                 <h3 className="text-xs font-semibold text-gray-500 uppercase mb-3">Creator</h3>
                 <div className="flex items-center gap-3">
-                  <img src={contest.creatorId.photo} alt="" className="w-10 h-10 rounded-full" />
+                  <img
+                    src={contest.creatorId.photo}
+                    alt=""
+                    className="w-10 h-10 rounded-full"
+                  />
                   <p className="font-semibold">{contest.creatorId.name}</p>
                 </div>
               </div>
@@ -260,8 +282,18 @@ const ContestDetails = () => {
               ) : (
                 <>
                   <div className="alert alert-success">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="stroke-current shrink-0 h-6 w-6"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                      />
                     </svg>
                     <span className="text-sm">You're registered!</span>
                   </div>
@@ -297,7 +329,6 @@ const ContestDetails = () => {
         onSuccess={handlePaymentSuccess}
       />
 
-
       <dialog id="submit_task_modal" className={`modal ${showSubmitModal ? 'modal-open' : ''}`}>
         <div className="modal-box">
           <h3 className="font-bold text-lg mb-4">Submit Your Task</h3>
@@ -306,6 +337,7 @@ const ContestDetails = () => {
             placeholder="Paste your submission link or details here..."
             value={submittedTask}
             onChange={(e) => setSubmittedTask(e.target.value)}
+            disabled={submitTaskMutation.isPending}
           ></textarea>
           <div className="modal-action">
             <button
@@ -314,16 +346,16 @@ const ContestDetails = () => {
                 setSubmittedTask('');
               }}
               className="btn btn-outline rounded-full"
-              disabled={submitting}
+              disabled={submitTaskMutation.isPending}
             >
               Cancel
             </button>
             <button
               onClick={handleSubmitTask}
               className="btn bg-[#20beff] hover:bg-[#1a9fd9] text-white rounded-full border-none"
-              disabled={submitting}
+              disabled={submitTaskMutation.isPending}
             >
-              {submitting ? (
+              {submitTaskMutation.isPending ? (
                 <>
                   <span className="loading loading-spinner loading-sm"></span>
                   Submitting...

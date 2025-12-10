@@ -40,7 +40,6 @@ const DashboardLayout = () => {
     }
   };
 
-  // Menu items based on role
   const getUserMenuItems = () => {
     const commonItems = [
       { path: '/', icon: <FaHome />, label: 'Home', external: true },
@@ -65,8 +64,6 @@ const DashboardLayout = () => {
         { path: '/dashboard/profile', icon: <FaUser />, label: 'My Profile' },
       ];
     }
-
-    // Default user
     return [
       ...commonItems,
       { path: '/dashboard', icon: <MdDashboard />, label: 'Dashboard' },
@@ -83,9 +80,7 @@ const DashboardLayout = () => {
       <div className="drawer lg:drawer-open">
         <input id="dashboard-drawer" type="checkbox" className="drawer-toggle" />
         
-        {/* Main Content */}
         <div className="drawer-content flex flex-col">
-          {/* Mobile Header */}
           <div className="navbar bg-base-100 lg:hidden sticky top-0 z-40 shadow-md">
             <div className="flex-none">
               <label htmlFor="dashboard-drawer" className="btn btn-square btn-ghost">
@@ -116,17 +111,14 @@ const DashboardLayout = () => {
             </div>
           </div>
 
-          {/* Page Content */}
           <div className="p-4 lg:p-8">
             <Outlet />
           </div>
         </div>
 
-        {/* Sidebar */}
         <div className="drawer-side z-50">
           <label htmlFor="dashboard-drawer" className="drawer-overlay"></label>
           <div className="menu p-4 w-80 min-h-full bg-base-100 text-base-content">
-            {/* Sidebar Header */}
             <div className="mb-8 p-4">
               <h2 className="text-2xl font-bold text-[#20beff] mb-2">ContestSphere</h2>
               <div className="flex items-center gap-3 mt-4 p-3 bg-base-200 rounded-lg">
@@ -142,7 +134,6 @@ const DashboardLayout = () => {
               </div>
             </div>
 
-            {/* Menu Items */}
             <ul className="space-y-2">
               {menuItems.map((item) => (
                 <li key={item.path}>
@@ -164,7 +155,6 @@ const DashboardLayout = () => {
               ))}
             </ul>
 
-            {/* Logout Button */}
             <div className="mt-auto pt-4 border-t border-base-300">
               <button
                 onClick={handleLogout}

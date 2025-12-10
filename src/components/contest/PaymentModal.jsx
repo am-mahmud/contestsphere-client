@@ -7,7 +7,7 @@ import {
   useElements
 } from '@stripe/react-stripe-js';
 import { paymentAPI } from '../../api/payment';
-import toast from 'react-hot-toast';
+import Swal from 'sweetalert2';
 import { FaCreditCard, FaTimes } from 'react-icons/fa';
 
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
@@ -36,23 +36,44 @@ function CheckoutForm({ contestId, contestName, amount, onSuccess, onClose }) {
 
       if (error) {
         setErrorMessage(error.message);
-        toast.error(error.message);
+        Swal.fire({
+          icon: 'error',
+          title: 'Payment Error',
+          text: error.message,
+          confirmButtonColor: '#20beff',
+          confirmButtonText: 'Try Again'
+        });
         setLoading(false);
         return;
       }
 
-     
       if (paymentIntent.status === 'succeeded') {
         await paymentAPI.confirmPayment(paymentIntent.id, contestId);
-        toast.success('Payment successful! You have joined the contest.');
+        
+        Swal.fire({
+          icon: 'success',
+          title: 'Payment Successful!',
+          text: 'You have successfully joined the contest.',
+          confirmButtonColor: '#20beff',
+          timer: 2000,
+          timerProgressBar: true
+        });
+        
         onSuccess();
         onClose();
       }
     } catch (error) {
       console.error('Payment error:', error);
-      const message = error.response?.data?.message || 'Payment failed';
+      const message = error.response?.data?.message || 'Payment failed. Please try again.';
       setErrorMessage(message);
-      toast.error(message);
+      
+      Swal.fire({
+        icon: 'error',
+        title: 'Payment Failed',
+        text: message,
+        confirmButtonColor: '#20beff'
+      });
+      
       setLoading(false);
     }
   };
@@ -77,7 +98,6 @@ function CheckoutForm({ contestId, contestName, amount, onSuccess, onClose }) {
           <span>{errorMessage}</span>
         </div>
       )}
-
 
       <div className="flex gap-3">
         <button
@@ -115,6 +135,7 @@ export default function PaymentModal({ contestId, contestName, onSuccess }) {
   const [amount, setAmount] = useState(0);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const loadPaymentIntent = async () => {
     try {
@@ -125,9 +146,15 @@ export default function PaymentModal({ contestId, contestName, onSuccess }) {
       setAmount(data.amount);
     } catch (error) {
       console.error('Error loading payment:', error);
-      const message = error.response?.data?.message || 'Failed to load payment';
+      const message = error.response?.data?.message || 'Failed to load payment form';
       setError(message);
-      toast.error(message);
+      
+      Swal.fire({
+        icon: 'error',
+        title: 'Payment Setup Failed',
+        text: message,
+        confirmButtonColor: '#20beff'
+      });
     } finally {
       setLoading(false);
     }
@@ -135,12 +162,14 @@ export default function PaymentModal({ contestId, contestName, onSuccess }) {
 
   const handleClose = () => {
     document.getElementById('payment_modal').close();
+    setIsModalOpen(false);
     setClientSecret('');
     setAmount(0);
     setError('');
   };
 
   const handleOpen = () => {
+    setIsModalOpen(true);
     document.getElementById('payment_modal').showModal();
     loadPaymentIntent();
   };
