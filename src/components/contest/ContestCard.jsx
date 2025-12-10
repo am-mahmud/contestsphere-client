@@ -2,12 +2,12 @@ import { Link } from 'react-router';
 import { FaUsers, FaTrophy, FaClock } from 'react-icons/fa';
 
 const ContestCard = ({ contest }) => {
-  // Check if deadline passed
+
   const isExpired = new Date(contest.deadline) < new Date();
 
   return (
     <div className="card bg-white shadow-lg hover:shadow-xl transition-shadow duration-300 border border-gray-200 rounded-2xl overflow-hidden">
-      {/* Image */}
+    
       <figure className="relative h-48 overflow-hidden">
         <img
           src={contest.image}
@@ -24,19 +24,17 @@ const ContestCard = ({ contest }) => {
         </div>
       </figure>
 
-      {/* Card Body */}
+ 
       <div className="card-body p-6">
-        {/* Title */}
+  
         <h2 className="text-xl font-bold text-gray-900 mb-2">
           {contest.name}
         </h2>
 
-        {/* Description */}
         <p className="text-sm text-gray-600 line-clamp-2 mb-4">
           {contest.description}
         </p>
 
-        {/* Stats */}
         <div className="flex items-center gap-4 text-sm text-gray-600 mb-3">
           <div className="flex items-center gap-1">
             <FaUsers className="text-[#20beff]" />
@@ -48,15 +46,15 @@ const ContestCard = ({ contest }) => {
           </div>
         </div>
 
-        {/* Entry Fee */}
+
         <div className="text-sm font-semibold text-[#20beff] mb-4">
           Entry Fee: ${contest.price}
         </div>
 
-        {/* Divider */}
+
         <div className="divider my-0"></div>
 
-        {/* Action Button */}
+
         <div className="pt-4">
           <Link
             to={`/contest/${contest._id}`}
