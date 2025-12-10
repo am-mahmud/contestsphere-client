@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from 'react';
+import { createContext, useContext, useEffect, useRef } from 'react';
 import { auth } from '../config/firebase';
 import {
   signInWithEmailAndPassword,
@@ -10,6 +10,7 @@ import {
 } from 'firebase/auth';
 import { authAPI } from '../api/auth';
 import api from '../utils/api';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 
 const AuthContext = createContext();
 
@@ -22,88 +23,149 @@ export const useAuth = () => {
 };
 
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const queryClient = useQueryClient();
+  const unsubscribeRef = useRef(null);
+  
+  const {
+    data: user = null,
+    isLoading
+  } = useQuery({
+    queryKey: ['currentUser'],
+    queryFn: async () => {
+      const token = localStorage.getItem('token');
+      if (!token) return null;
 
-  // Register with email/password
-  const register = async (name, email, password, photo) => {
-    // Create user in Firebase
-    await createUserWithEmailAndPassword(auth, email, password);
-    
-    // Register in backend
-    const data = await authAPI.register({ name, email, password, photo });
-    localStorage.setItem('token', data.token);
-    setUser(data.user);
-    return data;
-  };
-
-  // Login with email/password
-  const login = async (email, password) => {
-    // Login in Firebase
-    await signInWithEmailAndPassword(auth, email, password);
-    
-    // Login in backend
-    const data = await authAPI.login({ email, password });
-    localStorage.setItem('token', data.token);
-    setUser(data.user);
-    return data;
-  };
-
-  // Google Sign In
-  const googleSignIn = async () => {
-    const provider = new GoogleAuthProvider();
-    const result = await signInWithPopup(auth, provider);
-    
-    // You'll need to handle Google sign-in on backend later
-    // For now, just return the result
-    return result;
-  };
-
-  // Logout
-  const logout = async () => {
-    localStorage.removeItem('token');
-    setUser(null);
-    await signOut(auth);
-  };
-
-  // Check auth state on mount
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
-      if (firebaseUser) {
-        // User is logged in, get from backend
-        const token = localStorage.getItem('token');
-        if (token) {
-          try {
-            const { data } = await api.get('/api/users/me');
-            setUser(data);
-          } catch (error) {
-            console.error('Error fetching user:', error);
-            localStorage.removeItem('token');
-            setUser(null);
-          }
-        }
-      } else {
-        setUser(null);
+      try {
+        const { data } = await api.get('/api/users/me');
+        return data;
+      } catch (error) {
+        console.error('Error fetching user:', error);
+        localStorage.removeItem('token');
+        return null;
       }
-      setLoading(false);
+    },
+    enabled: false,
+    staleTime: Infinity,
+    gcTime: 1000 * 60 * 60 
+  });
+
+  const registerMutation = useMutation({
+    mutationFn: async ({ name, email, password, photo }) => {
+      await createUserWithEmailAndPassword(auth, email, password);
+      const data = await authAPI.register({ name, email, password, photo });
+      return data;
+    },
+    onSuccess: (data) => {
+      localStorage.setItem('token', data.token);
+      queryClient.setQueryData(['currentUser'], data.user);
+    },
+    onError: (error) => {
+      console.error('Registration error:', error);
+      throw error;
+    }
+  });
+
+  const loginMutation = useMutation({
+    mutationFn: async ({ email, password }) => {
+      await signInWithEmailAndPassword(auth, email, password);
+      const data = await authAPI.login({ email, password });
+      return data;
+    },
+    onSuccess: (data) => {
+      localStorage.setItem('token', data.token);
+      queryClient.setQueryData(['currentUser'], data.user);
+    },
+    onError: (error) => {
+      console.error('Login error:', error);
+      throw error;
+    }
+  });
+
+  const googleSignInMutation = useMutation({
+    mutationFn: async () => {
+      const provider = new GoogleAuthProvider();
+      const result = await signInWithPopup(auth, provider);
+      return result;
+    },
+    onError: (error) => {
+      console.error('Google sign-in error:', error);
+      throw error;
+    }
+  });
+
+  const logoutMutation = useMutation({
+    mutationFn: async () => {
+      localStorage.removeItem('token');
+      await signOut(auth);
+    },
+    onSuccess: () => {
+      queryClient.setQueryData(['currentUser'], null);
+      queryClient.clear();
+    },
+    onError: (error) => {
+      console.error('Logout error:', error);
+      throw error;
+    }
+  });
+
+  useEffect(() => {
+    unsubscribeRef.current = onAuthStateChanged(auth, (firebaseUser) => {
+      if (firebaseUser) {
+     
+        queryClient.refetchQueries({ queryKey: ['currentUser'] });
+      } else {
+    
+        queryClient.setQueryData(['currentUser'], null);
+      }
     });
 
-    return unsubscribe;
-  }, []);
+    queryClient.refetchQueries({ queryKey: ['currentUser'] });
+
+    return () => {
+      if (unsubscribeRef.current) {
+        unsubscribeRef.current();
+      }
+    };
+  }, [queryClient]);
+
+  const register = async (name, email, password, photo) => {
+    return registerMutation.mutateAsync({ name, email, password, photo });
+  };
+
+  const login = async (email, password) => {
+    return loginMutation.mutateAsync({ email, password });
+  };
+
+  const googleSignIn = async () => {
+    return googleSignInMutation.mutateAsync();
+  };
+
+  const logout = async () => {
+    return logoutMutation.mutateAsync();
+  };
+
+  const setUser = (userData) => {
+    queryClient.setQueryData(['currentUser'], userData);
+  };
 
   const value = {
     user,
-    loading,
+    loading: isLoading || registerMutation.isPending || loginMutation.isPending || logoutMutation.isPending,
     register,
     login,
     googleSignIn,
     logout,
     setUser,
+    isRegistering: registerMutation.isPending,
+    isLoggingIn: loginMutation.isPending,
+    isLoggingOut: logoutMutation.isPending,
+    registerError: registerMutation.error,
+    loginError: loginMutation.error,
   };
 
   return (
     <AuthContext.Provider value={value}>
-      {!loading && children}
+      {!isLoading && children}
     </AuthContext.Provider>
   );
 };
