@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
 import { contestAPI } from '../api/contest';
 import ContestCard from '../components/contest/ContestCard';
 import { FiSearch } from 'react-icons/fi';
@@ -7,9 +8,6 @@ import { FaMagnifyingGlass } from 'react-icons/fa6';
 const AllContests = () => {
   const [activeTab, setActiveTab] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
-  const [data, setData] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
 
   const contestTypes = [
     { id: 'all', label: 'All Contests' },
@@ -19,29 +17,21 @@ const AllContests = () => {
     { id: 'Business Ideas', label: 'Business Ideas' },
   ];
 
-  useEffect(() => {
-    const fetchContests = async () => {
-      setIsLoading(true);
-      setError(null);
-      try {
-        const params = {};
-        if (activeTab !== 'all') {
-          params.contestType = activeTab;
-        }
-        if (searchQuery) {
-          params.search = searchQuery;
-        }
-        const result = await contestAPI.getAllContests(params);
-        setData(result);
-      } catch (err) {
-        setError(err);
-      } finally {
-        setIsLoading(false);
+  const { data, isLoading, error } = useQuery({
+    queryKey: ['contests', activeTab, searchQuery],
+    queryFn: async () => {
+      const params = {};
+      if (activeTab !== 'all') {
+        params.contestType = activeTab;
       }
-    };
-
-    fetchContests();
-  }, [activeTab, searchQuery]);
+      if (searchQuery) {
+        params.search = searchQuery;
+      }
+      return await contestAPI.getAllContests(params);
+    },
+    staleTime: 30000, 
+    keepPreviousData: true, 
+  });
 
   return (
     <div className="container mx-auto px-4 lg:px-8 py-16">
@@ -67,6 +57,7 @@ const AllContests = () => {
         </div>
       </div>
 
+  
       <div className="flex flex-wrap justify-center gap-2 mb-12">
         {contestTypes.map((type) => (
           <button
@@ -98,9 +89,13 @@ const AllContests = () => {
         </div>
       )}
 
+
       {error && (
         <div className="alert alert-error max-w-2xl mx-auto">
-          <span>Failed to load contests. Please try again later.</span>
+          <span>
+            {error.response?.data?.message || 
+             'Failed to load contests. Please try again later.'}
+          </span>
         </div>
       )}
 
@@ -114,13 +109,15 @@ const AllContests = () => {
 
       {data && data.contests && data.contests.length === 0 && (
         <div className="text-center flex flex-col items-center justify-center py-12">
-          <div className="text-6xl mb-4"><FaMagnifyingGlass /></div>
+          <div className="text-6xl mb-4 text-gray-400">
+            <FaMagnifyingGlass />
+          </div>
           <h3 className="text-2xl font-bold text-gray-900 mb-2">
             No contests found
           </h3>
           <p className="text-gray-600 mb-6">
             {searchQuery
-              ? `No contests match. Try a different search.`
+              ? `No contests match "${searchQuery}". Try a different search.`
               : 'No contests available in this category yet.'}
           </p>
           {searchQuery && (
