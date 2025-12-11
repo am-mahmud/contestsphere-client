@@ -1,8 +1,23 @@
+// export default {
+//   content: [
+//     "./index.html",
+//     "./src/**/*.{js,ts,jsx,tsx}",
+//   ],
+//   theme: {
+//     extend: {},
+//   },
+//   plugins: [require("daisyui")],
+//   daisyui: {
+//     themes: ["light", "dark"], // Enable both themes
+//   },
+// }
+
 export default {
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
+  darkMode: 'class', // ← Add this line
   theme: {
     extend: {},
   },

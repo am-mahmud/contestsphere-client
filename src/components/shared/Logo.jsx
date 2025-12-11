@@ -5,7 +5,7 @@ const Logo = () => {
     return (
         <Link to='/'>
 
-            <h1 className='font-semibold text-sm sm:text-base md:text-lg lg:text-2xl text-gray-900 dark:text-white tracking-tight'>
+            <h1 className='font-bold text-sm sm:text-base md:text-lg lg:text-2xl tracking-tight transition-colors duration-300'>
                 contest sphere
             </h1>
         </Link>
