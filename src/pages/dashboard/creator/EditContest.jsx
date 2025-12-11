@@ -341,8 +341,8 @@ const EditContest = () => {
 
       <form onSubmit={handleSubmit(onSubmit)} className="card bg-white shadow-lg">
         <div className="card-body space-y-4">
+          <label className="label"><span className="label-text font-semibold">Contest Name *</span></label>
           <div className="form-control">
-            <label className="label"><span className="label-text font-semibold">Contest Name *</span></label>
             <input
               type="text"
               className="input input-bordered"
@@ -411,7 +411,7 @@ const EditContest = () => {
             </div>
           </div>
 
-  
+
           <div className="form-control">
             <label className="label"><span className="label-text font-semibold">Deadline *</span></label>
             <DatePicker
@@ -424,7 +424,7 @@ const EditContest = () => {
             />
           </div>
 
-  
+
           <div className="flex gap-4 pt-4">
             <button type="submit" className="btn bg-[#20beff] text-white flex-1" disabled={updateMutation.isPending}>
               {updateMutation.isPending ? <><span className="loading loading-spinner loading-sm"></span> Updating...</> : 'Update Contest'}

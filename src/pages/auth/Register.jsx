@@ -5,7 +5,7 @@ import Swal from 'sweetalert2';
 import { FcGoogle } from 'react-icons/fc';
 import { MdEmail } from 'react-icons/md';
 import Logo from '../../components/shared/Logo';
-import defaultUserImg from '../../assets/images/defultUser.png';
+
 
 const Register = () => {
     const { register: registerForm, handleSubmit, formState: { errors }, watch } = useForm();
