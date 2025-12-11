@@ -15,7 +15,7 @@ const Register = () => {
     const onSubmit = async (data) => {
         try {
            
-            const photoUrl = data.photo && data.photo.trim() !== '' ? data.photo : defaultUserImg;
+            const photoUrl = data.photo && data.photo.trim() !== '' ? data.photo : " ";
             
             await registerUser(data.name, data.email, data.password, photoUrl);
             Swal.fire({

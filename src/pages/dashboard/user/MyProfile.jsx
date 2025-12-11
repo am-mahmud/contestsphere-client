@@ -227,7 +227,7 @@ const MyProfile = () => {
                   </label>
                   <input
                     type="url"
-                    placeholder=""
+                    placeholder="Your Photo"
                     className="input input-bordered rounded-full w-full"
                     {...register('photo', {
                       required: 'Photo URL is required',
@@ -276,12 +276,12 @@ const MyProfile = () => {
             <div className="card-body items-center text-center">
               <div className="avatar mb-4">
                 <div className="w-24 rounded-full ring ring-[#20beff] ring-offset-2">
-                  <img src={user?.photo} alt={user?.name} />
+                  <img src={user?.photo} alt={""} />
                 </div>
               </div>
               <h3 className="text-xl font-bold text-gray-900">{user?.name}</h3>
               <p className="text-sm text-gray-600">{user?.email}</p>
-              <div className="badge badge-primary mt-2 capitalize">{user?.role}</div>
+              <div className="badge bg-[#20beff] mt-2 p-2 text-lg capitalize">{user?.role}</div>
             </div>
           </div>
         </div>
@@ -291,3 +291,5 @@ const MyProfile = () => {
 };
 
 export default MyProfile;
+
+
