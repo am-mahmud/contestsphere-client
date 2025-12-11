@@ -52,7 +52,7 @@ export default function About() {
         </p>
       </div>
 
-      <div className="bg-gray-50 py-12 px-4">
+      <div className=" py-12 px-4">
         <div className="max-w-5xl mx-auto">
           <h2 className="text-3xl font-bold text-center mb-12">Our Core Values</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -81,7 +81,7 @@ export default function About() {
       </div>
 
 
-      <div className="bg-gray-50 py-12 px-4">
+      <div className=" py-12 px-4">
         <div className="max-w-2xl mx-auto text-center">
           <h2 className="text-3xl font-bold mb-4">Get In Touch</h2>
           <p className="text-gray-600 mb-8">Have questions? We'd love to hear from you. Reach out to our team anytime.</p>
