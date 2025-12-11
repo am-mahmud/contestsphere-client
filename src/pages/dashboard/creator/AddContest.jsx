@@ -93,7 +93,7 @@ const AddContest = () => {
               <input
                 type="url"
                 placeholder="Contest Image"
-                className="input input-bordered w-full"
+                className="input input-bordered w-full object-contain"
                 {...register('image', {
                   required: 'Image URL is required',
                   pattern: {
