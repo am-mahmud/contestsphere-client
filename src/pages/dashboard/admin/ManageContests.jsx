@@ -90,7 +90,6 @@ const ManageContests = () => {
     },
   });
 
-  // Handle approve
   const handleApprove = (id, name) => {
     Swal.fire({
       title: 'Approve Contest?',
@@ -107,7 +106,6 @@ const ManageContests = () => {
     });
   };
 
-  // Handle reject
   const handleReject = (id, name) => {
     Swal.fire({
       title: 'Reject Contest?',
@@ -124,7 +122,6 @@ const ManageContests = () => {
     });
   };
 
-  // Handle delete
   const handleDeleteContest = (id, name) => {
     Swal.fire({
       title: 'Delete Contest?',
@@ -147,7 +144,6 @@ const ManageContests = () => {
     rejected: 'badge-error',
   };
 
-  // Loading state
   if (isLoading) {
     return (
       <div className="text-center py-12">
@@ -157,7 +153,6 @@ const ManageContests = () => {
     );
   }
 
-  // Error state
   if (error) {
     return (
       <div className="text-center py-12">
@@ -172,7 +167,6 @@ const ManageContests = () => {
 
   return (
     <div>
-      {/* Header */}
       <div className="mb-8">
         <h1 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-2">
           Manage Contests
@@ -182,7 +176,6 @@ const ManageContests = () => {
         </p>
       </div>
 
-      {/* Filter Tabs */}
       <div className="flex gap-2 mb-6 flex-wrap">
         {['all', 'pending', 'confirmed', 'rejected'].map((s) => (
           <button
@@ -199,7 +192,6 @@ const ManageContests = () => {
         ))}
       </div>
 
-      {/* Empty State */}
       {contests.length === 0 ? (
         <div className="card bg-white shadow-lg">
           <div className="card-body text-center py-12">
@@ -216,7 +208,6 @@ const ManageContests = () => {
         </div>
       ) : (
         <>
-          {/* Stats */}
           <div className="mb-4">
             <p className="text-gray-600">
               Showing <span className="font-semibold">{contests.length}</span>{' '}
@@ -224,7 +215,6 @@ const ManageContests = () => {
             </p>
           </div>
 
-          {/* Table */}
           <div className="overflow-x-auto bg-white rounded-lg shadow">
             <table className="table">
               <thead>
