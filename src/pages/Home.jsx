@@ -3,6 +3,7 @@ import React from 'react';
 import HomeBanner from '../components/shared/HomeBanner';
 import UserType from '../components/shared/UserType';
 import PopularContests from '../components/shared/PopularContest';
+import WinnerAdvertisement from '../components/shared/WinnerAdvertisement';
 
 const Home = () => {
     return (
@@ -10,6 +11,7 @@ const Home = () => {
            <HomeBanner></HomeBanner>
            <UserType></UserType>
            <PopularContests></PopularContests>
+           <WinnerAdvertisement></WinnerAdvertisement>
         </div>
     );
 };
