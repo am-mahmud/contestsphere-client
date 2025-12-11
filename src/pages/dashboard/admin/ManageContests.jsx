@@ -284,7 +284,6 @@ const ManageContests = () => {
                       {c.participantCount}
                     </td>
 
-                    {/* Deadline */}
                     <td>
                       <div className="text-sm">
                         {new Date(c.deadline).toLocaleDateString('en-US', {
@@ -300,7 +299,6 @@ const ManageContests = () => {
                       )}
                     </td>
 
-                    {/* Actions */}
                     <td>
                       <div className="flex gap-1">
                         {c.status === 'pending' && (
