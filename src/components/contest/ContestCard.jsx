@@ -6,7 +6,7 @@ const ContestCard = ({ contest }) => {
   const isExpired = new Date(contest.deadline) < new Date();
 
   return (
-    <div className="card  shadow-lg hover:shadow-xl transition-shadow duration-300 border border-gray-200 rounded-2xl overflow-hidden">
+    <div className="card  shadow-sm transition-shadow duration-300 border border-gray-200 rounded-2xl overflow-hidden">
     
       <figure className="relative h-48 overflow-hidden">
         <img
@@ -31,11 +31,11 @@ const ContestCard = ({ contest }) => {
           {contest.name}
         </h2>
 
-        <p className="text-sm text-gray-600 line-clamp-2 mb-4">
+        <p className="text-sm  line-clamp-2 mb-4">
           {contest.description}
         </p>
 
-        <div className="flex items-center gap-4 text-sm text-gray-600 mb-3">
+        <div className="flex items-center gap-4 text-sm  mb-3">
           <div className="flex items-center gap-1">
             <FaUsers className="text-[#20beff]" />
             <span>{contest.participantCount} joined</span>

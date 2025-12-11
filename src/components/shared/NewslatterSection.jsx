@@ -90,7 +90,7 @@ export default function NewsletterSection() {
             <button
               onClick={handleSubscribe}
               disabled={isLoading || isSubscribed}
-              className="w-full bg-linear-to-r from-[#20beff] to-blue-600 text-white py-3 px-6 rounded-xl font-bold text-lg hover:shadow-lg transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full bg-linear-to-r bg-gray-900 hover:bg-[#20beff] text-white border-gray-900 hover:border-[#20beff] py-3 px-6 rounded-full font-bold text-lg hover:shadow-lg transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {isLoading ? (
                 <span className="flex items-center justify-center gap-2">
