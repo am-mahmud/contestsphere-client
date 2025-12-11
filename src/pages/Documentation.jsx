@@ -40,13 +40,13 @@ export default function Documentation() {
   return (
     <div className="min-h-screen bg-base-100 py-12 px-4">
       <div className="max-w-4xl mx-auto">
-        {/* Header */}
+
         <div className="text-center mb-12">
           <h1 className="text-4xl lg:text-5xl font-bold mb-4">How To Use ContestSphere</h1>
           <p className="text-lg text-gray-600">Step-by-step guide to get started with our platform</p>
         </div>
 
-        {/* Sections */}
+     
         <div className="space-y-4">
           {sections.map((section) => (
             <div key={section.id} className="border border-gray-200 rounded-lg overflow-hidden">
@@ -70,7 +70,6 @@ export default function Documentation() {
           ))}
         </div>
 
-        {/* FAQ Section */}
         <div className="mt-12 bg-blue-50 rounded-lg p-8">
           <h2 className="text-2xl font-bold mb-6">Frequently Asked Questions</h2>
           <div className="space-y-4">
@@ -93,7 +92,6 @@ export default function Documentation() {
           </div>
         </div>
 
-        {/* CTA */}
         <div className="text-center mt-12">
           <a href="/allcontests" className="btn bg-[#20beff] text-white rounded-full px-8 py-3 text-lg">
             Start Competing Now

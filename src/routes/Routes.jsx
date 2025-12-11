@@ -20,6 +20,7 @@ import ManageUsers from "../pages/dashboard/admin/ManageUsers";
 import ManageContests from "../pages/dashboard/admin/ManageContests";
 import Leaderboard from "../pages/Leaderboard";
 import Documentation from "../pages/Documentation";
+import About from "../pages/About";
 
 export const router = createBrowserRouter([
   {
@@ -32,6 +33,7 @@ export const router = createBrowserRouter([
       { path: '/allcontests', element: <AllContests /> },
       { path: '/leaderboard', element: <Leaderboard /> },
       { path: '/documentation', element: <Documentation /> },
+      { path: '/about', element: <About /> },
       {
         path: '/contest/:id', element:
           <PrivateRoute>
