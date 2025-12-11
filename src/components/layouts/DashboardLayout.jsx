@@ -76,7 +76,7 @@ const DashboardLayout = () => {
   const menuItems = getUserMenuItems();
 
   return (
-    <div className="min-h-screen max-w-7xl mx-auto bg-base-200">
+    <div className="min-h-screen bg-base-200">
       <div className="drawer lg:drawer-open">
         <input id="dashboard-drawer" type="checkbox" className="drawer-toggle" />
         
