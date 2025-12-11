@@ -56,7 +56,6 @@ const AddContest = () => {
 
   return (
     <div>
-      {/* Header */}
       <div className="mb-8">
         <h1 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-2">
           Create New Contest
@@ -66,11 +65,9 @@ const AddContest = () => {
         </p>
       </div>
 
-      {/* Form Card */}
       <div className="card bg-white shadow-lg max-w-4xl">
         <div className="card-body">
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-            {/* Contest Name */}
             <div className="form-control">
               <label className="label">
                 <span className="label-text font-semibold">Contest Name *</span>
@@ -89,14 +86,13 @@ const AddContest = () => {
               )}
             </div>
 
-            {/* Contest Image URL */}
             <div className="form-control">
               <label className="label">
                 <span className="label-text font-semibold">Contest Image URL *</span>
               </label>
               <input
                 type="url"
-                placeholder="https://images.unsplash.com/photo-..."
+                placeholder="Contest Image"
                 className="input input-bordered"
                 {...register('image', {
                   required: 'Image URL is required',
@@ -114,7 +110,6 @@ const AddContest = () => {
               </label>
             </div>
 
-            {/* Description */}
             <div className="form-control">
               <label className="label">
                 <span className="label-text font-semibold">Contest Description *</span>
