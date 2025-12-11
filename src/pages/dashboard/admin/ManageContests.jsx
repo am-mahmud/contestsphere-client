@@ -232,7 +232,6 @@ const ManageContests = () => {
               <tbody>
                 {contests.map((c) => (
                   <tr key={c._id} className="hover">
-                    {/* Contest Info */}
                     <td>
                       <div className="flex items-center gap-3">
                         <img
@@ -249,7 +248,6 @@ const ManageContests = () => {
                       </div>
                     </td>
 
-                    {/* Creator */}
                     <td>
                       {c.creatorId ? (
                         <div className="flex items-center gap-2">
@@ -265,26 +263,23 @@ const ManageContests = () => {
                       )}
                     </td>
 
-                    {/* Type */}
                     <td>
                       <span className="badge badge-ghost badge-sm">
                         {c.contestType}
                       </span>
                     </td>
 
-                    {/* Status */}
                     <td>
                       <span className={`badge ${badges[c.status]} badge-sm`}>
                         {c.status}
                       </span>
                     </td>
 
-                    {/* Prize */}
                     <td className="font-semibold text-[#20beff]">
                       ${c.prizeMoney}
                     </td>
 
-                    {/* Participants */}
+                
                     <td className="text-center font-semibold">
                       {c.participantCount}
                     </td>
