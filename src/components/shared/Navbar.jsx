@@ -50,7 +50,8 @@ const Navbar = () => {
       <SphereLink to="/">Home</SphereLink>
       <SphereLink to="/allcontests">All Contests</SphereLink>
       <SphereLink to="/leaderboard">Leaderboard</SphereLink>
-      <SphereLink to="/blog">Blog</SphereLink>
+      <SphereLink to="/documentation">Documentation</SphereLink>
+      <SphereLink to="/About">About</SphereLink>
     </div>
   );
 
