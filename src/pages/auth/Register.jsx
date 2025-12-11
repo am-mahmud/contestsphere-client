@@ -150,10 +150,11 @@ const Register = () => {
                         <div className="form-control mb-6">
                             <input
                                 type="url"
-                                placeholder="Photo URL (Optional)"
+                                placeholder="Photo URL"
                                 className="input input-bordered w-full rounded-full"
                                 {...registerForm('photo', {
                                     pattern: {
+                                        required: 'Photo is required',
                                         value: /^https?:\/\/.+\..+/i,
                                         message: 'Invalid URL'
                                     }
