@@ -11,7 +11,7 @@ const PopularContests = () => {
   });
 
   return (
-    <section className="container mx-auto mt-10">
+    <section className="container mx-auto mb-10 px-4 lg:px-8 py-16">
       <div className="flex justify-between items-center mb-8">
         <div>
           <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-2">

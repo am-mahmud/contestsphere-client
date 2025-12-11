@@ -13,7 +13,7 @@ const UserTypesSection = () => {
     {
       title: 'Creators',
       description: 'Showcase your talents in design, writing, and creative fields.',
-      image: creatorsImg,  // Changed from string to imported image
+      image: creatorsImg,  
       features: [
         { icon: <FaSmile size={20} />, text: 'Beginner-friendly contests' },
         { icon: <FaGraduationCap size={20} />, text: 'Build your portfolio' },
@@ -23,7 +23,7 @@ const UserTypesSection = () => {
     {
       title: 'Developers',
       description: 'Build projects, solve challenges, and grow your skills.',
-      image: developersImg,  // Changed from string to imported image
+      image: developersImg, 
       features: [
         { icon: <FiCode size={20} />, text: 'Coding competitions' },
         { icon: <FiTool size={20} />, text: 'Technical challenges' },
@@ -33,7 +33,7 @@ const UserTypesSection = () => {
     {
       title: 'Researchers',
       description: 'Advance your knowledge and compete with experts.',
-      image: researchersImg,  // Changed from string to imported image
+      image: researchersImg,  
       features: [
         { icon: <MdWorkspacePremium size={20} />, text: 'Research competitions' },
         { icon: <MdDatasetLinked size={20} />, text: 'Access datasets' },
@@ -43,7 +43,7 @@ const UserTypesSection = () => {
     {
       title: 'Innovators',
       description: 'Transform ideas into reality through competitions.',
-      image: innovatorsImg,  // Changed from string to imported image
+      image: innovatorsImg,  
       features: [
         { icon: <MdWorkspacePremium size={20} />, text: 'Innovation contests' },
         { icon: <FiTool size={20} />, text: 'Resource sharing' },
@@ -53,18 +53,15 @@ const UserTypesSection = () => {
   ];
 
   return (
-    <div className='bg-white py-16 px-4 lg:px-8'>
+    <div className='container mx-auto mb-10 px-4 lg:px-8 py-16'>
       <div className='container mx-auto'>
-        {/* Header */}
         <div className='mb-16'>
           <h2 className='text-4xl lg:text-5xl font-bold text-gray-900'>Who's on Contest Sphere?</h2>
         </div>
-
-        {/* User Types Grid */}
         <div className='grid grid-cols-1 lg:grid-cols-4 gap-12'>
           {userTypes.map((user, index) => (
             <div key={index}>
-              {/* Image - Now displays actual image */}
+  
               <div className='mb-8 h-40 flex items-center justify-center overflow-hidden'>
                 <img 
                   src={user.image} 
@@ -73,11 +70,9 @@ const UserTypesSection = () => {
                 />
               </div>
 
-              {/* Title & Description */}
               <h3 className='text-2xl font-bold text-gray-900 mb-2'>{user.title}</h3>
               <p className='text-gray-600 text-sm mb-8'>{user.description}</p>
 
-              {/* Key Features */}
               <div className='mb-6'>
                 <p className='text-xs font-semibold text-gray-500 uppercase tracking-wide mb-4'>Key Features</p>
                 <div className='space-y-4'>
