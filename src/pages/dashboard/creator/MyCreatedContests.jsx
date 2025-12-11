@@ -63,7 +63,7 @@ const MyCreatedContests = () => {
       )}
 
       {contests?.length > 0 && (
-        <div className="overflow-x-auto bg-white rounded-lg shadow">
+        <div className="overflow-x-auto  rounded-lg shadow">
           <table className="table">
             <thead>
               <tr>

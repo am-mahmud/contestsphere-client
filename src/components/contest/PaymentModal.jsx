@@ -81,14 +81,14 @@ function CheckoutForm({ contestId, contestName, amount, onSuccess, onClose }) {
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
       <div className="bg-linear-to-r from-blue-50 to-cyan-50 p-6 rounded-xl border-2 border-[#20beff]">
-        <h3 className="font-bold text-lg mb-2 text-gray-900">{contestName}</h3>
+        <h3 className="font-bold text-lg mb-2 ">{contestName}</h3>
         <p className="text-3xl font-bold text-[#20beff]">
           ${amount.toFixed(2)}
         </p>
         <p className="text-sm text-gray-600 mt-2">Entry Fee</p>
       </div>
 
-      <div className="bg-white p-4 rounded-lg border border-gray-200">
+      <div className=" p-4 rounded-lg border border-gray-200">
         <PaymentElement />
       </div>
 

@@ -16,7 +16,7 @@ const MyWinning = () => {
   return (
     <div>
       <div className="mb-8">
-        <h1 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-2">
+        <h1 className="text-3xl lg:text-4xl font-bold  mb-2">
           My Winning Contests 
         </h1>
         <p className="text-gray-600">Celebrate your achievements and victories!</p>
@@ -50,10 +50,10 @@ const MyWinning = () => {
       )}
 
       {!isLoading && data && data.length === 0 && (
-        <div className="card bg-white shadow-lg">
+        <div className="card  shadow-lg">
           <div className="card-body text-center py-12">
             <div className="text-6xl mb-4 flex items-center justify-center"><FaTrophy /></div>
-            <h3 className="text-2xl font-bold text-gray-900 mb-2">
+            <h3 className="text-2xl font-bold  mb-2">
               No Wins Yet
             </h3>
             <p className="text-gray-600 mb-6">
@@ -75,7 +75,7 @@ const MyWinning = () => {
             return (
               <div
                 key={win._id}
-                className="card bg-white shadow-lg hover:shadow-xl transition-shadow relative overflow-hidden"
+                className="card  shadow-lg hover:shadow-xl transition-shadow relative overflow-hidden"
               >
                 <div className="absolute top-4 right-4 z-10">
                   {index === 0 ? (
@@ -98,7 +98,7 @@ const MyWinning = () => {
                 </figure>
 
                 <div className="card-body">
-                  <h3 className="card-title text-xl text-gray-900">{contest.name}</h3>
+                  <h3 className="card-title text-xl ">{contest.name}</h3>
                   
                   <div className="flex items-center gap-2 mb-2">
                     <span className="badge badge-primary">{contest.contestType}</span>

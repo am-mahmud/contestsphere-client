@@ -89,7 +89,7 @@ const SubmittedTasks = () => {
                     {submittedTasks.map((sub) => {
                         const isWinner = selectedContestData?.winnerId?.toString() === sub.userId._id.toString();
                         return (
-                            <div key={sub._id} className={`card bg-white shadow ${isWinner ? 'ring-2 ring-yellow-400' : ''}`}>
+                            <div key={sub._id} className={`card  shadow ${isWinner ? 'ring-2 ring-yellow-400' : ''}`}>
                                 <div className="card-body p-6">
                                     <div className="flex gap-4">
                                         <img src={sub.userId.photo} alt="" className="w-12 h-12 rounded-full" />

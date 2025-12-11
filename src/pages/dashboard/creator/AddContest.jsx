@@ -57,7 +57,7 @@ const AddContest = () => {
   return (
     <div>
       <div className="mb-8">
-        <h1 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-2">
+        <h1 className="text-3xl lg:text-4xl font-bold  mb-2">
           Create New Contest
         </h1>
         <p className="text-gray-600">
@@ -65,7 +65,7 @@ const AddContest = () => {
         </p>
       </div>
 
-      <div className="card bg-white shadow-lg max-w-4xl">
+      <div className="card  shadow-lg max-w-4xl">
         <div className="card-body">
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
             <label className="label">

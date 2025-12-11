@@ -65,7 +65,7 @@ const AllContests = () => {
             onClick={() => setActiveTab(type.id)}
             className={`px-6 py-2 rounded-full font-semibold transition-all ${
               activeTab === type.id
-                ? 'bg-[#20beff] text-white'
+                ? 'bg-[#20beff] text-white '
                 : 'bg-white text-gray-700 hover:bg-gray-100 border border-gray-300'
             }`}
           >

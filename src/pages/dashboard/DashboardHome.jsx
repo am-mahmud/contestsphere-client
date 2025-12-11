@@ -53,7 +53,7 @@ const DashboardHome = () => {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm text-gray-600 mb-1">{stat.label}</p>
-                  <p className="text-3xl font-bold text-gray-900">{stat.value}</p>
+                  <p className="text-3xl font-bold ">{stat.value}</p>
                 </div>
                 <div className={`text-4xl ${stat.color}`}>{stat.icon}</div>
               </div>
@@ -62,7 +62,7 @@ const DashboardHome = () => {
         ))}
       </div>
 
-      <div className="card bg-white shadow-lg">
+      <div className="card  shadow-lg">
         <div className="card-body">
           <h2 className="card-title text-2xl mb-4">Quick Actions</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">

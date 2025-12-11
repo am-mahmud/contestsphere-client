@@ -60,7 +60,7 @@ const Leaderboard = () => {
   
       {filteredUsers && filteredUsers.length > 0 && (
         <div className="max-w-3xl mx-auto">
-          <div className="bg-white rounded-lg shadow overflow-hidden">
+          <div className=" rounded-lg shadow overflow-hidden">
             <table className="table">
               <thead>
                 <tr>
