@@ -11,9 +11,9 @@ const AllContests = () => {
 
   const contestTypes = [
     { id: 'all', label: 'All Contests' },
-    { id: 'Image Design', label: 'Image Design' },
+    { id: 'Programming', label: 'Programming' },
     { id: 'Article Writing', label: 'Article Writing' },
-    { id: 'Gaming Review', label: 'Gaming Review' },
+    { id: 'Retro Gaming', label: 'Retro Gaming' },
     { id: 'Business Ideas', label: 'Business Ideas' },
   ];
 

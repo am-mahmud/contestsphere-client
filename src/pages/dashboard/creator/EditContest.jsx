@@ -71,9 +71,9 @@
 //   };
 
 //   const contestTypes = [
-//     'Image Design',
+//     'Programming',
 //     'Article Writing',
-//     'Gaming Review',
+//     'Retro Gaming',
 //     'Business Ideas',
 //     'Web Design',
 //     'Mobile App Design',
@@ -328,7 +328,7 @@ const EditContest = () => {
     });
   };
 
-  const contestTypes = ['Image Design', 'Article Writing', 'Gaming Review', 'Business Ideas', 'Web Design', 'Mobile App Design'];
+  const contestTypes = ['Programming', 'Article Writing', 'Retro Gaming', 'Business Ideas', 'Web Design', 'Mobile App Design'];
 
   if (isLoading) return <div className="flex justify-center py-12"><span className="loading loading-spinner loading-lg"></span></div>;
 

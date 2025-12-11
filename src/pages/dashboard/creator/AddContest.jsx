@@ -46,9 +46,9 @@ const AddContest = () => {
   };
 
   const contestTypes = [
-    'Image Design',
+    'Programming',
     'Article Writing',
-    'Gaming Review',
+    'Retro Gaming',
     'Business Ideas',
     'Web Design',
     'Mobile App Design',
