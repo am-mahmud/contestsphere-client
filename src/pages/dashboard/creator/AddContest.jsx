@@ -132,7 +132,7 @@ const AddContest = () => {
               )}
             </div>
 
-            {/* Task Instructions */}
+       
             <div className="form-control">
               <label className="label">
                 <span className="label-text font-semibold">Task Instructions *</span>
@@ -150,7 +150,7 @@ const AddContest = () => {
               )}
             </div>
 
-            {/* Contest Type */}
+         
             <div className="form-control">
               <label className="label">
                 <span className="label-text font-semibold">Contest Type *</span>
@@ -171,9 +171,9 @@ const AddContest = () => {
               )}
             </div>
 
-            {/* Price and Prize Money Row */}
+     
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {/* Entry Fee */}
+           
               <div className="form-control">
                 <label className="label">
                   <span className="label-text font-semibold">Entry Fee ($) *</span>
@@ -193,7 +193,6 @@ const AddContest = () => {
                 )}
               </div>
 
-              {/* Prize Money */}
               <div className="form-control">
                 <label className="label">
                   <span className="label-text font-semibold">Prize Money ($) *</span>
@@ -214,7 +213,6 @@ const AddContest = () => {
               </div>
             </div>
 
-            {/* Deadline */}
             <div className="form-control">
               <label className="label">
                 <span className="label-text font-semibold">Contest Deadline *</span>
@@ -233,7 +231,6 @@ const AddContest = () => {
               </label>
             </div>
 
-            {/* Submit Button */}
             <div className="form-control mt-8">
               <button
                 type="submit"
