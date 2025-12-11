@@ -29,7 +29,10 @@ const SubmittedTasks = () => {
 
     const declareWinnerMutation = useMutation({
         mutationFn: async ({ contestId, participationId }) => {
-            const { data } = await api.post(`/api/participations/declare-winner/${contestId}/${participationId}`);
+            const { data } = await api.post('/api/participations/declare-winner', {
+                contestId,
+                participationId
+            });
             return data;
         },
         onSuccess: () => {

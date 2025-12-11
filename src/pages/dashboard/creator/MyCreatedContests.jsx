@@ -12,7 +12,7 @@ const MyCreatedContests = () => {
   const { data: contests, isLoading } = useQuery({
     queryKey: ['myCreatedContests'],
     queryFn: async () => {
-      const { data } = await api.get('/api/contests/my-contests');
+      const { data } = await api.get('/api/contests/my-contests/my');
       return data;
     },
   });
