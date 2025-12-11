@@ -340,40 +340,43 @@ const EditContest = () => {
       </div>
 
       <form onSubmit={handleSubmit(onSubmit)} className="card bg-white shadow-lg">
-        <div className="card-body space-y-4">
+        <div className="card-body space-y-2">
           <label className="label"><span className="label-text font-semibold">Contest Name *</span></label>
           <div className="form-control">
             <input
               type="text"
-              className="input input-bordered"
+              className="input input-bordered w-full"
               {...register('name', { required: 'Required', minLength: { value: 5, message: 'Min 5 characters' } })}
             />
             {errors.name && <span className="text-error text-sm">{errors.name.message}</span>}
           </div>
 
+
+          <label className="label"><span className="label-text font-semibold">Image URL *</span></label>
           <div className="form-control">
-            <label className="label"><span className="label-text font-semibold">Image URL *</span></label>
             <input
               type="url"
-              className="input input-bordered"
+              className="input input-bordered w-full"
               {...register('image', { required: 'Required', pattern: { value: /^https?:\/\/.+\..+/i, message: 'Invalid URL' } })}
             />
             {errors.image && <span className="text-error text-sm">{errors.image.message}</span>}
           </div>
 
+          <label className="label"><span className="label-text font-semibold">Description *</span></label>
           <div className="form-control">
-            <label className="label"><span className="label-text font-semibold">Description *</span></label>
+
             <textarea
-              className="textarea textarea-bordered h-24"
+              className="textarea textarea-bordered h-24 w-full"
               {...register('description', { required: 'Required', minLength: { value: 50, message: 'Min 50 characters' } })}
             ></textarea>
             {errors.description && <span className="text-error text-sm">{errors.description.message}</span>}
           </div>
 
+          <label className="label"><span className="label-text font-semibold">Task Instructions *</span></label>
           <div className="form-control">
-            <label className="label"><span className="label-text font-semibold">Task Instructions *</span></label>
+
             <textarea
-              className="textarea textarea-bordered h-24"
+              className="textarea textarea-bordered h-24 w-full"
               {...register('taskInstruction', { required: 'Required', minLength: { value: 30, message: 'Min 30 characters' } })}
             ></textarea>
             {errors.taskInstruction && <span className="text-error text-sm">{errors.taskInstruction.message}</span>}
@@ -420,7 +423,7 @@ const EditContest = () => {
               showTimeSelect
               dateFormat="MMMM d, yyyy h:mm aa"
               minDate={new Date()}
-              className="input input-bordered w-full"
+              className="input input-bordered w-96"
             />
           </div>
 
