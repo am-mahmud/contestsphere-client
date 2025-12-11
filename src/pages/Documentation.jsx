@@ -43,7 +43,7 @@ export default function Documentation() {
 
         <div className="text-center mb-12">
           <h1 className="text-4xl lg:text-5xl font-bold mb-4">How To Use ContestSphere</h1>
-          <p className="text-lg text-gray-600">Step-by-step guide to get started with our platform</p>
+          <p className="text-lg ">Step-by-step guide to get started with our platform</p>
         </div>
 
      
@@ -52,7 +52,7 @@ export default function Documentation() {
             <div key={section.id} className="border border-gray-200 rounded-lg overflow-hidden">
               <button
                 onClick={() => setExpandedSection(expandedSection === section.id ? null : section.id)}
-                className="w-full p-6 flex items-center gap-4 hover:bg-gray-50 transition"
+                className="w-full p-6 flex items-center gap-4 transition"
               >
                 <div>{section.icon}</div>
                 <h2 className="text-xl font-semibold text-left flex-1">{section.title}</h2>
@@ -62,32 +62,32 @@ export default function Documentation() {
               </button>
 
               {expandedSection === section.id && (
-                <div className="px-6 pb-6 bg-gray-50 border-t border-gray-200">
-                  <p className="text-gray-700 leading-relaxed">{section.content}</p>
+                <div className="px-6 pb-6  border-t border-gray-200">
+                  <p className="leading-relaxed">{section.content}</p>
                 </div>
               )}
             </div>
           ))}
         </div>
 
-        <div className="mt-12 bg-blue-50 rounded-lg p-8">
+        <div className="mt-12 rounded-lg ">
           <h2 className="text-2xl font-bold mb-6">Frequently Asked Questions</h2>
           <div className="space-y-4">
             <div>
               <h3 className="font-semibold text-lg mb-2">Can I join multiple contests?</h3>
-              <p className="text-gray-700">Yes, you can join as many contests as you want. Each contest requires a separate registration and payment.</p>
+              <p >Yes, you can join as many contests as you want. Each contest requires a separate registration and payment.</p>
             </div>
             <div>
               <h3 className="font-semibold text-lg mb-2">What payment methods do you accept?</h3>
-              <p className="text-gray-700">We accept all major credit cards and payment methods through Stripe (Visa, Mastercard, American Express, etc.)</p>
+              <p >We accept all major credit cards and payment methods through Stripe (Visa, Mastercard, American Express, etc.)</p>
             </div>
             <div>
               <h3 className="font-semibold text-lg mb-2">Can I withdraw from a contest?</h3>
-              <p className="text-gray-700">You can withdraw before the deadline. Contact support for refund requests.</p>
+              <p >You can withdraw before the deadline. Contact support for refund requests.</p>
             </div>
             <div>
               <h3 className="font-semibold text-lg mb-2">How are winners selected?</h3>
-              <p className="text-gray-700">Winners are selected by contest creators based on the contest criteria and submission quality.</p>
+              <p>Winners are selected by contest creators based on the contest criteria and submission quality.</p>
             </div>
           </div>
         </div>
