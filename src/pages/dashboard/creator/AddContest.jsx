@@ -67,15 +67,15 @@ const AddContest = () => {
 
       <div className="card bg-white shadow-lg max-w-4xl">
         <div className="card-body">
-          <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+            <label className="label">
+              <span className="label-text font-semibold">Contest Name *</span>
+            </label>
             <div className="form-control">
-              <label className="label">
-                <span className="label-text font-semibold">Contest Name *</span>
-              </label>
               <input
                 type="text"
-                placeholder="e.g., Logo Design Challenge 2025"
-                className="input input-bordered"
+                placeholder="Retro Game Design Challenge 2025"
+                className="input input-bordered w-full"
                 {...register('name', {
                   required: 'Contest name is required',
                   minLength: { value: 5, message: 'Name must be at least 5 characters' },
@@ -86,14 +86,14 @@ const AddContest = () => {
               )}
             </div>
 
+            <label className="label">
+              <span className="label-text font-semibold">Contest Image URL *</span>
+            </label>
             <div className="form-control">
-              <label className="label">
-                <span className="label-text font-semibold">Contest Image URL *</span>
-              </label>
               <input
                 type="url"
                 placeholder="Contest Image"
-                className="input input-bordered"
+                className="input input-bordered w-full"
                 {...register('image', {
                   required: 'Image URL is required',
                   pattern: {
@@ -105,18 +105,15 @@ const AddContest = () => {
               {errors.image && (
                 <span className="text-error text-sm mt-1">{errors.image.message}</span>
               )}
-              <label className="label">
-                <span className="label-text-alt">Use Unsplash, Pexels, or image hosting service</span>
-              </label>
             </div>
 
+            <label className="label">
+              <span className="label-text font-semibold">Contest Description *</span>
+            </label>
             <div className="form-control">
-              <label className="label">
-                <span className="label-text font-semibold">Contest Description *</span>
-              </label>
               <textarea
                 placeholder="Describe the contest, what participants need to do, and what makes it exciting..."
-                className="textarea textarea-bordered h-32"
+                className="textarea textarea-bordered h-32 w-full"
                 {...register('description', {
                   required: 'Description is required',
                   minLength: { value: 50, message: 'Description must be at least 50 characters' },
@@ -127,14 +124,14 @@ const AddContest = () => {
               )}
             </div>
 
-       
+            <label className="label">
+              <span className="label-text font-semibold">Task Instructions *</span>
+            </label>
             <div className="form-control">
-              <label className="label">
-                <span className="label-text font-semibold">Task Instructions *</span>
-              </label>
+
               <textarea
                 placeholder="Detailed instructions on what to submit, format requirements, etc..."
-                className="textarea textarea-bordered h-32"
+                className="textarea textarea-bordered h-32 w-full"
                 {...register('taskInstruction', {
                   required: 'Task instructions are required',
                   minLength: { value: 30, message: 'Instructions must be at least 30 characters' },
@@ -145,11 +142,11 @@ const AddContest = () => {
               )}
             </div>
 
-         
+            <label className="label">
+              <span className="label-text font-semibold">Contest Type *</span>
+            </label>
             <div className="form-control">
-              <label className="label">
-                <span className="label-text font-semibold">Contest Type *</span>
-              </label>
+
               <select
                 className="select select-bordered"
                 {...register('contestType', { required: 'Contest type is required' })}
@@ -166,9 +163,9 @@ const AddContest = () => {
               )}
             </div>
 
-     
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-           
+
+            <div className="flex flex-row items-center justify-between">
+
               <div className="form-control">
                 <label className="label">
                   <span className="label-text font-semibold">Entry Fee ($) *</span>
@@ -208,22 +205,20 @@ const AddContest = () => {
               </div>
             </div>
 
+            <label className="label">
+              <span className="label-text font-semibold">Contest Deadline *</span>
+            </label>
             <div className="form-control">
-              <label className="label">
-                <span className="label-text font-semibold">Contest Deadline *</span>
-              </label>
               <DatePicker
                 selected={deadline}
                 onChange={(date) => setDeadline(date)}
                 showTimeSelect
                 dateFormat="MMMM d, yyyy h:mm aa"
                 minDate={new Date()}
-                className="input input-bordered w-full"
+                className="input input-bordered w-96"
                 placeholderText="Select deadline date and time"
               />
-              <label className="label">
-                <span className="label-text-alt">Participants must submit before this date</span>
-              </label>
+              
             </div>
 
             <div className="form-control mt-8">
