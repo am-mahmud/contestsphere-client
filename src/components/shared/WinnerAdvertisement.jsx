@@ -21,11 +21,11 @@ const WinnerAdvertisement = () => {
   
   return (
     <section>
-      <div className="container mx-auto px-4 lg:px-8 mb-16">
+      <div className="container mx-auto px-4 lg:px-8 mb-10">
         
         <div className="mb-12">
           <div className="flex gap-3 mb-4">
-            <h2 className="text-4xl lg:text-5xl font-bold ">
+            <h2 className="text-4xl lg:text-5xl font-bold">
               Recent Winners
             </h2>
           </div>

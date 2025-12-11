@@ -4,6 +4,8 @@ import HomeBanner from '../components/shared/HomeBanner';
 import UserType from '../components/shared/UserType';
 import PopularContests from '../components/shared/PopularContest';
 import WinnerAdvertisement from '../components/shared/WinnerAdvertisement';
+import CommunitySection from '../components/shared/CommunitySection';
+import NewsletterSection from '../components/shared/NewslatterSection';
 
 const Home = () => {
     return (
@@ -12,6 +14,8 @@ const Home = () => {
            <UserType></UserType>
            <PopularContests></PopularContests>
            <WinnerAdvertisement></WinnerAdvertisement>
+           <CommunitySection></CommunitySection>
+           <NewsletterSection></NewsletterSection>
         </div>
     );
 };
