@@ -38,7 +38,7 @@ export default function Documentation() {
   ];
 
   return (
-    <div className="min-h-screen bg-base-100 py-12 px-4">
+    <div className="min-h-screen bg-base-100 py-12 px-4 lg:px-8">
       <div className="max-w-4xl mx-auto">
 
         <div className="text-center mb-12">

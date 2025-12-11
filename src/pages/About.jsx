@@ -34,7 +34,7 @@ export default function About() {
   ];
 
   return (
-    <div className="min-h-screen bg-base-100">
+    <div className="min-h-screen bg-base-100 px-4 lg:px-8">
       <div className="py-16 px-4">
         <div className="max-w-4xl mx-auto text-center">
           <h1 className="text-4xl lg:text-5xl font-bold mb-4">About ContestSphere</h1>

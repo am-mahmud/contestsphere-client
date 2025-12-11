@@ -7,7 +7,7 @@ import WinnerAdvertisement from '../components/shared/WinnerAdvertisement';
 
 const Home = () => {
     return (
-        <div>
+        <div className='px-4 lg:px-8'>
            <HomeBanner></HomeBanner>
            <UserType></UserType>
            <PopularContests></PopularContests>
