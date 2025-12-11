@@ -36,10 +36,10 @@ const AllContests = () => {
   return (
     <div className="container mx-auto px-4 lg:px-8 py-16">
       <div className="text-center mb-12">
-        <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
+        <h1 className="text-4xl lg:text-5xl font-bold mb-4">
           All Contests
         </h1>
-        <p className="text-xl text-gray-600">
+        <p className="text-xl ">
           Explore all available contests and find your next challenge
         </p>
       </div>
@@ -53,7 +53,7 @@ const AllContests = () => {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
-          <FiSearch className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-xl" />
+          <FiSearch className="absolute left-4 top-1/2 -translate-y-1/2 text-xl" />
         </div>
       </div>
 
@@ -109,13 +109,13 @@ const AllContests = () => {
 
       {data && data.contests && data.contests.length === 0 && (
         <div className="text-center flex flex-col items-center justify-center py-12">
-          <div className="text-6xl mb-4 text-gray-400">
+          <div className="text-6xl mb-4 ">
             <FaMagnifyingGlass />
           </div>
-          <h3 className="text-2xl font-bold text-gray-900 mb-2">
+          <h3 className="text-2xl font-bold  mb-2">
             No contests found
           </h3>
-          <p className="text-gray-600 mb-6">
+          <p className=" mb-6">
             {searchQuery
               ? `No contests match "${searchQuery}". Try a different search.`
               : 'No contests available in this category yet.'}

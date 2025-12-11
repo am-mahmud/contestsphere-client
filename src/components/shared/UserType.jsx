@@ -56,7 +56,7 @@ const UserTypesSection = () => {
     <div className='container mx-auto mb-10 px-4 lg:px-8 py-16'>
       <div className='container mx-auto'>
         <div className='mb-16'>
-          <h2 className='text-4xl lg:text-5xl font-bold text-gray-900'>Who's on Contest Sphere?</h2>
+          <h2 className='text-4xl lg:text-5xl font-bold '>Who's on Contest Sphere?</h2>
         </div>
         <div className='grid grid-cols-1 lg:grid-cols-4 gap-12'>
           {userTypes.map((user, index) => (
@@ -70,8 +70,8 @@ const UserTypesSection = () => {
                 />
               </div>
 
-              <h3 className='text-2xl font-bold text-gray-900 mb-2'>{user.title}</h3>
-              <p className='text-gray-600 text-sm mb-8'>{user.description}</p>
+              <h3 className='text-2xl font-bold  mb-2'>{user.title}</h3>
+              <p className=' text-sm mb-8'>{user.description}</p>
 
               <div className='mb-6'>
                 <p className='text-xs font-semibold text-gray-500 uppercase tracking-wide mb-4'>Key Features</p>
@@ -79,7 +79,7 @@ const UserTypesSection = () => {
                   {user.features.map((feature, idx) => (
                     <div key={idx} className='flex items-center gap-3'>
                       <span className='text-[#20beff]'>{feature.icon}</span>
-                      <span className='text-gray-700 text-sm'>{feature.text}</span>
+                      <span className=' text-sm'>{feature.text}</span>
                     </div>
                   ))}
                 </div>

@@ -38,17 +38,17 @@ const DashboardHome = () => {
     <div>
       
       <div className="mb-8">
-        <h1 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-2">
+        <h1 className="text-3xl lg:text-4xl font-bold mb-2">
           Welcome back, {user?.name}!
         </h1>
-        <p className="text-gray-600">
+        <p >
           Here's what's happening with your account today.
         </p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
         {stats.map((stat, index) => (
-          <div key={index} className="card bg-white shadow-lg">
+          <div key={index} className="card shadow-lg">
             <div className="card-body">
               <div className="flex items-center justify-between">
                 <div>

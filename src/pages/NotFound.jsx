@@ -3,11 +3,11 @@ import { Link } from 'react-router';
 
 const NotFound = () => {
     return (
-        <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
+        <div className="min-h-screen flex items-center justify-center px-4">
             <div className="text-center space-y-6 max-w-md">
                 <div>
                     <h1 className="text-9xl lg:text-[150px] font-bold text-[#20beff]">404</h1>
-                    <p className="text-3xl lg:text-4xl font-bold text-gray-900 mt-4">Page Not Found</p>
+                    <p className="text-3xl lg:text-4xl font-bold  mt-4">Page Not Found</p>
                 </div>
 
                 <p className="text-gray-600 text-lg">

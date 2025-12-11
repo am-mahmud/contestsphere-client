@@ -7,8 +7,8 @@ const HomeBanner = () => {
             <div className='grid grid-cols-1 lg:grid-cols-2 gap-12 items-center'>
 
                 <div className='space-y-6'>
-                    <h1 className='font-bold text-5xl lg:text-6xl text-gray-900 '>Turn Your Skills Into Winning Moments</h1>
-                    <p className='text-lg text-gray-600'>Discover exciting contests across multiple categories. Participate in challenges that match your passion, compete with talented individuals worldwide, and win amazing prizes while building your reputation.</p>
+                    <h1 className='font-bold text-5xl lg:text-6xl '>Turn Your Skills Into Winning Moments</h1>
+                    <p className='text-lg'>Discover exciting contests across multiple categories. Participate in challenges that match your passion, compete with talented individuals worldwide, and win amazing prizes while building your reputation.</p>
                 </div>
 
                 <div className='flex justify-center lg:justify-end'>

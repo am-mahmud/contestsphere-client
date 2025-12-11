@@ -14,7 +14,7 @@ const PopularContests = () => {
     <section className="container mx-auto mb-10 px-4 lg:px-8 py-16">
       <div className="flex justify-between items-center mb-8">
         <div>
-          <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-2">
+          <h2 className="text-4xl lg:text-5xl font-bold  mb-2">
             Popular Contests
           </h2>
         </div>
@@ -50,7 +50,7 @@ const PopularContests = () => {
 
       {data && data.contests && data.contests.length === 0 && (
         <div className="text-center py-12">
-          <p className="text-xl text-gray-600">
+          <p className="text-xl ">
             No contests available yet. Check back soon!
           </p>
         </div>
