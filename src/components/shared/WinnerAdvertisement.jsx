@@ -34,14 +34,14 @@ const WinnerAdvertisement = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-          <div className="rounded-xl shadow-sm p-6 text-center">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12 ">
+          <div className="rounded-xl shadow-sm p-6 text-center border border-gray-200">
             <FaCrown className="text-5xl text-yellow-500 mx-auto mb-3" />
             <div className="text-4xl font-bold  mb-2">{totalWinners}+</div>
-            <div className="text-gray-600 font-semibold">Total Winners</div>
+            <div className=" font-semibold">Total Winners</div>
           </div>
 
-          <div className=" rounded-xl shadow-sm p-6 text-center">
+          <div className=" rounded-xl shadow-sm p-6 text-center border border-gray-200">
             <FaTrophy className="text-5xl text-green-500 mx-auto mb-3" />
             <div className="text-4xl font-bold  mb-2">
               ${totalPrizeMoney.toLocaleString()}
@@ -49,7 +49,7 @@ const WinnerAdvertisement = () => {
             <div className="font-semibold">Prize Money Awarded</div>
           </div>
 
-          <div className="rounded-xl shadow-sm p-6 text-center">
+          <div className="rounded-xl shadow-sm p-6 text-center border border-gray-200">
             <FaMedal className="text-5xl text-orange-500 mx-auto mb-3" />
             <div className="text-4xl font-bold  mb-2">100%</div>
             <div className="font-semibold">Satisfaction Rate</div>
@@ -93,7 +93,7 @@ const WinnerAdvertisement = () => {
                     <FaMedal className="text-2xl text-yellow-500" />
                   </div>
 
-                  <h4 className="font-bold text-gray-900 mb-3 line-clamp-1">
+                  <h4 className="font-bold  mb-3 line-clamp-1">
                     {contest.name}
                   </h4>
 
@@ -117,7 +117,7 @@ const WinnerAdvertisement = () => {
           </div>
         ) : (
           
-          <div className="rounded-xl shadow-sm p-12 text-center mb-12">
+          <div className="rounded-xl shadow-sm p-12 text-center mb-12 border border-gray-200">
             <FaTrophy className="text-6xl text-gray-300 mx-auto mb-4" />
             <h3 className="text-2xl font-bold  mb-2">
               First Winners Coming Soon!
@@ -129,7 +129,7 @@ const WinnerAdvertisement = () => {
         )}
 
     
-        <div className="rounded-2xl shadow-sm p-8 text-center ">
+        <div className="rounded-2xl shadow-sm p-8 text-center border border-gray-200">
           <FaTrophy className="text-5xl mx-auto mb-4 text-gray-300" />
           <h3 className="text-3xl font-bold mb-4">
             Ready to Win?

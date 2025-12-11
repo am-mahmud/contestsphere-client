@@ -20,7 +20,7 @@ export default function CommunitySection() {
       <div>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
           
-          <div className="border border-gray-200 dark:border-gray-700 rounded-3xl p-8 lg:p-10 transition-shadow duration-300">
+          <div className="border border-gray-200  rounded-3xl p-8 lg:p-10 transition-shadow duration-300">
             <div className="flex items-center gap-3 mb-6">
               <FaGlobe className="text-3xl text-[#20beff]" />
               <h2 className="text-3xl lg:text-4xl font-bold">A global community</h2>

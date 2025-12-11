@@ -57,7 +57,7 @@ export default function NewsletterSection() {
         </div>
 
        
-        <div className=" rounded-2xl p-6 lg:p-8 shadow-2xl">
+        <div className=" rounded-2xl p-6 lg:p-8 shadow-sm border border-gray-200">
           <div className="space-y-4">
         
             <div>
@@ -78,7 +78,6 @@ export default function NewsletterSection() {
               </div>
             )}
 
-            {/* Success Message */}
             {isSubscribed && (
               <div className="bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-100 px-4 py-3 rounded-xl flex items-center gap-3 font-semibold">
                 <MdCheckCircle className="text-2xl" />
