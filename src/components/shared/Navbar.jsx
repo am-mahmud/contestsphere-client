@@ -11,7 +11,6 @@ import Swal from 'sweetalert2';
 const Navbar = () => {
   const { user, logout } = useAuth();
   const [theme, setTheme] = useState('light');
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useEffect(() => {
     const savedTheme = localStorage.getItem('theme') || 'light';
@@ -19,14 +18,12 @@ const Navbar = () => {
     document.documentElement.setAttribute('data-theme', savedTheme);
   }, []);
 
-
   const toggleTheme = () => {
     const newTheme = theme === 'light' ? 'dark' : 'light';
     setTheme(newTheme);
     localStorage.setItem('theme', newTheme);
     document.documentElement.setAttribute('data-theme', newTheme);
   };
-
 
   const handleLogout = async () => {
     try {
@@ -47,118 +44,157 @@ const Navbar = () => {
     }
   };
 
-  const handleLinkClick = () => {
-    setIsMenuOpen(false);
-  };
-
-  const links = (
-    <>
-      <li onClick={handleLinkClick}>
-        <SphereLink to="/">Home</SphereLink>
-      </li>
-      <li onClick={handleLinkClick}>
-        <SphereLink to="/allcontests">All Contests</SphereLink>
-      </li>
-      <li onClick={handleLinkClick}>
-        <SphereLink to="/leaderboard">Leaderboard</SphereLink>
-      </li>
-      <li onClick={handleLinkClick}>
-        <SphereLink to="/documentation">Documentation</SphereLink>
-      </li>
-      <li onClick={handleLinkClick}>
-        <SphereLink to="/About">About</SphereLink>
-      </li>
-    </>
-  );
-
   return (
     <div className="bg-base-100 shadow-md sticky top-0 z-50">
       <div className="container mx-auto px-4 lg:px-8">
-        <div className="navbar py-3">
+        <div className="navbar py-2">
           
-       
+          {/* Mobile: Logo & Menu */}
           <div className="navbar-start">
-            <div className="dropdown">
-              <button
-                tabIndex={0}
-                onClick={() => setIsMenuOpen(!isMenuOpen)}
-                className="btn btn-ghost lg:hidden"
-                aria-label="Toggle menu"
-              >
-                {isMenuOpen ? (
-                  <IoClose className="text-2xl" />
-                ) : (
+            {/* Mobile Drawer */}
+            <div className="drawer lg:hidden">
+              <input id="mobile-menu" type="checkbox" className="drawer-toggle" />
+              <div className="drawer-content">
+                <label htmlFor="mobile-menu" className="btn btn-ghost">
                   <CiMenuBurger className="text-2xl" />
-                )}
-              </button>
+                </label>
+              </div>
+              <div className="drawer-side z-50">
+                <label htmlFor="mobile-menu" className="drawer-overlay"></label>
+                <div className="menu p-4 w-80 min-h-full bg-base-100">
+                  
+                  {/* Close Button */}
+                  <label htmlFor="mobile-menu" className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+                    <IoClose className="text-2xl" />
+                  </label>
 
-      
-              {isMenuOpen && (
-                <ul
-                  tabIndex={0}
-                  className="dropdown-content menu bg-base-100 rounded-box z-50 w-64 p-4 shadow-lg mt-3 border border-base-300"
-                >
-                  {links}
+                  {/* Logo in Drawer */}
+                  <div className="mb-6 mt-4">
+                    <Logo />
+                  </div>
 
+                  {/* Navigation Links */}
+                  <ul className="space-y-2">
+                    <li>
+                      <Link to="/" className="btn btn-ghost w-full justify-start">
+                        Home
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="/allcontests" className="btn btn-ghost w-full justify-start">
+                        All Contests
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="/leaderboard" className="btn btn-ghost w-full justify-start">
+                        Leaderboard
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="/documentation" className="btn btn-ghost w-full justify-start">
+                        Documentation
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="/about" className="btn btn-ghost w-full justify-start">
+                        About
+                      </Link>
+                    </li>
+                  </ul>
 
-                  <li className="mt-4 pt-4 border-t border-base-300">
-                    <button
-                      onClick={() => {
-                        toggleTheme();
-                        handleLinkClick();
-                      }}
-                      className="flex items-center gap-3"
-                    >
-                      {theme === 'light' ? (
-                        <>
-                          <MdDarkMode className="text-xl" />
-                          <span>Dark Mode</span>
-                        </>
-                      ) : (
-                        <>
-                          <MdLightMode className="text-xl" />
-                          <span>Light Mode</span>
-                        </>
-                      )}
-                    </button>
-                  </li>
+                  <div className="divider"></div>
 
-                  {!user && (
-                    <li className="mt-4 pt-4 border-t border-base-300 space-y-2">
+                  {/* Theme Toggle */}
+                  <button
+                    onClick={toggleTheme}
+                    className="btn btn-ghost w-full justify-start gap-3"
+                  >
+                    {theme === 'light' ? (
+                      <>
+                        <MdDarkMode className="text-xl" />
+                        <span>Dark Mode</span>
+                      </>
+                    ) : (
+                      <>
+                        <MdLightMode className="text-xl" />
+                        <span>Light Mode</span>
+                      </>
+                    )}
+                  </button>
+
+                  <div className="divider"></div>
+
+                  {/* Auth Section */}
+                  {user ? (
+                    <div className="space-y-2">
+                      <div className="flex items-center gap-3 px-4 py-2">
+                        <img
+                          src={user.photo}
+                          alt={user.name}
+                          className="w-12 h-12 rounded-full ring ring-[#20beff] ring-offset-2"
+                          onError={(e) => {
+                            e.target.src = 'https://via.placeholder.com/150';
+                          }}
+                        />
+                        <div>
+                          <div className="font-bold">{user.name}</div>
+                          <div className="text-xs text-gray-500 capitalize">{user.role}</div>
+                        </div>
+                      </div>
+                      <Link
+                        to="/dashboard"
+                        className="btn btn-ghost w-full justify-start"
+                      >
+                        Dashboard
+                      </Link>
+                      <button
+                        onClick={handleLogout}
+                        className="btn btn-ghost w-full justify-start text-red-600"
+                      >
+                        Logout
+                      </button>
+                    </div>
+                  ) : (
+                    <div className="space-y-2">
                       <Link
                         to="/login"
-                        onClick={handleLinkClick}
-                        className="btn btn-outline w-full rounded-2xl text-[#20beff] border-[#20beff] hover:bg-[#20beff] hover:text-white"
+                        className="btn btn-outline w-full text-[#20beff] border-[#20beff] hover:bg-[#20beff] hover:text-white"
                       >
                         Sign In
                       </Link>
                       <Link
                         to="/register"
-                        onClick={handleLinkClick}
-                        className="btn w-full rounded-2xl bg-gray-900 text-white hover:bg-[#20beff]"
+                        className="btn w-full bg-gray-900 text-white hover:bg-[#20beff]"
                       >
                         Register
                       </Link>
-                    </li>
+                    </div>
                   )}
-                </ul>
-              )}
+                </div>
+              </div>
             </div>
 
-            {/* Logo */}
-            <Logo />
+            {/* Logo - Always Visible */}
+            <div className="ml-2">
+              <Logo />
+            </div>
           </div>
 
-          {/* Navbar Center - Desktop Links */}
+          {/* Desktop Center - Navigation Links */}
           <div className="navbar-center hidden lg:flex">
             <ul className="menu menu-horizontal px-1 gap-2">
-              {links}
+              <li><SphereLink to="/">Home</SphereLink></li>
+              <li><SphereLink to="/allcontests">All Contests</SphereLink></li>
+              <li><SphereLink to="/leaderboard">Leaderboard</SphereLink></li>
+              <li><SphereLink to="/documentation">Documentation</SphereLink></li>
+              <li><SphereLink to="/about">About</SphereLink></li>
             </ul>
           </div>
 
+          {/* Desktop End - Theme & Auth */}
           <div className="navbar-end gap-2">
             
-          
+            {/* Desktop Theme Toggle */}
             <button
               onClick={toggleTheme}
               className="btn btn-ghost btn-circle hidden lg:flex"
@@ -171,9 +207,9 @@ const Navbar = () => {
               )}
             </button>
 
-  
+            {/* Desktop Auth */}
             {user ? (
-              <div className="dropdown dropdown-end">
+              <div className="dropdown dropdown-end hidden lg:block">
                 <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
                   <div className="w-10 rounded-full ring ring-[#20beff] ring-offset-2">
                     <img
@@ -195,23 +231,12 @@ const Navbar = () => {
                       <span className="text-xs text-gray-500 capitalize">{user.role}</span>
                     </div>
                   </li>
-                  <div className="divider my-1"></div>
+                  <div className="divider my-0"></div>
                   <li>
-                    <Link to="/dashboard" className="flex items-center gap-2">
-                      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
-                      </svg>
-                      Dashboard
-                    </Link>
+                    <Link to="/dashboard">Dashboard</Link>
                   </li>
                   <li>
-                    <button
-                      onClick={handleLogout}
-                      className="flex items-center gap-2 text-red-600 hover:bg-red-50"
-                    >
-                      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
-                      </svg>
+                    <button onClick={handleLogout} className="text-red-600">
                       Logout
                     </button>
                   </li>
@@ -221,13 +246,13 @@ const Navbar = () => {
               <div className="hidden lg:flex gap-2">
                 <Link
                   to="/login"
-                  className="btn btn-outline rounded-2xl text-[#20beff] border-[#20beff] hover:bg-[#20beff] hover:text-white hover:border-[#20beff]"
+                  className="btn btn-outline rounded-2xl text-[#20beff] border-[#20beff] hover:bg-[#20beff] hover:text-white"
                 >
                   Sign In
                 </Link>
                 <Link
                   to="/register"
-                  className="btn rounded-2xl bg-gray-900 text-white border-gray-900 hover:bg-[#20beff] hover:border-[#20beff]"
+                  className="btn rounded-2xl bg-gray-900 text-white hover:bg-[#20beff]"
                 >
                   Register
                 </Link>
