@@ -145,7 +145,6 @@ const Navbar = () => {
           </div>
         </div>
 
-    =
         {mobileMenuOpen && (
           <div className="lg:hidden pb-4 border-t border-gray-200 dark:border-gray-700">
             <div className="flex flex-col gap-3 pt-4">
