@@ -50,7 +50,7 @@ const MyWinning = () => {
       )}
 
       {!isLoading && data && data.length === 0 && (
-        <div className="card  shadow-lg">
+        <div className="card bg-white shadow-lg">
           <div className="card-body text-center py-12">
             <div className="text-6xl mb-4 flex items-center justify-center"><FaTrophy /></div>
             <h3 className="text-2xl font-bold  mb-2">
@@ -75,7 +75,7 @@ const MyWinning = () => {
             return (
               <div
                 key={win._id}
-                className="card  shadow-lg hover:shadow-xl transition-shadow relative overflow-hidden"
+                className="card bg-white shadow-lg hover:shadow-xl transition-shadow relative overflow-hidden"
               >
                 <div className="absolute top-4 right-4 z-10">
                   {index === 0 ? (

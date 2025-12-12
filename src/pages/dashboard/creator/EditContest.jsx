@@ -55,7 +55,7 @@ const EditContest = () => {
         <p className="text-gray-600">Update contest details</p>
       </div>
 
-      <form onSubmit={handleSubmit(onSubmit)} className="card  shadow-lg">
+      <form onSubmit={handleSubmit(onSubmit)} className="card bg-white shadow-lg">
         <div className="card-body space-y-2">
           <label className="label"><span className="label-text font-semibold">Contest Name *</span></label>
           <div className="form-control">

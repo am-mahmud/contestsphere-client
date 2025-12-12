@@ -88,7 +88,7 @@ function CheckoutForm({ contestId, contestName, amount, onSuccess, onClose }) {
         <p className="text-sm text-gray-600 mt-2">Entry Fee</p>
       </div>
 
-      <div className=" p-4 rounded-lg border border-gray-200">
+      <div className="bg-white p-4 rounded-lg border border-gray-200">
         <PaymentElement />
       </div>
 

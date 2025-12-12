@@ -330,7 +330,7 @@ const ContestDetails = () => {
         />
 
         <dialog id="submit_task_modal" className={`modal ${showSubmitModal ? 'modal-open' : ''}`}>
-          <div className="modal-box  dark:bg-gray-800">
+          <div className="modal-box bg-white dark:bg-gray-800">
             <h3 className="font-bold text-lg mb-4">Submit Your Task</h3>
             <textarea
               className="textarea textarea-bordered w-full h-32 dark:bg-gray-700 dark:border-gray-600 dark:text-white"

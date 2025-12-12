@@ -50,7 +50,7 @@ const MyProfile = () => {
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:auto-rows-max">
         <div className="lg:col-span-1">
-          <div className="card  shadow-lg h-full">
+          <div className="card bg-white shadow-lg h-full">
             <div className="card-body items-center text-center">
               <div className="avatar mb-6">
                 <div className="w-32 rounded-full ring ring-[#20beff] ring-offset-2">
@@ -68,7 +68,7 @@ const MyProfile = () => {
         </div>
 
         <div className="lg:col-span-2">
-          <div className="card  shadow-lg h-full">
+          <div className="card bg-white shadow-lg h-full">
             <div className="card-body">
               <h2 className="card-title text-2xl mb-6">Update Profile</h2>
 

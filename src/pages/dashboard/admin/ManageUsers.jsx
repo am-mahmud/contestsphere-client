@@ -91,7 +91,7 @@ const ManageUsers = () => {
 
       {data && (
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-          <div className="card  shadow-lg">
+          <div className="card bg-white shadow-lg">
             <div className="card-body">
               <div className="flex items-center justify-between">
                 <div>
@@ -103,7 +103,7 @@ const ManageUsers = () => {
             </div>
           </div>
 
-          <div className="card  shadow-lg">
+          <div className="card bg-white shadow-lg">
             <div className="card-body">
               <div className="flex items-center justify-between">
                 <div>
@@ -117,7 +117,7 @@ const ManageUsers = () => {
             </div>
           </div>
 
-          <div className="card  shadow-lg">
+          <div className="card bg-white shadow-lg">
             <div className="card-body">
               <div className="flex items-center justify-between">
                 <div>
@@ -145,7 +145,7 @@ const ManageUsers = () => {
 
       {data && data.users && (
         <>
-          <div className="card  shadow-lg overflow-x-auto">
+          <div className="card bg-white shadow-lg overflow-x-auto">
             <table className="table">
 
               <thead>
@@ -315,7 +315,7 @@ export default ManageUsers;
 //       {users.length === 0 ? (
 //         <div className="text-center py-12">No users found</div>
 //       ) : (
-//         <div className="overflow-x-auto  rounded-lg shadow">
+//         <div className="overflow-x-auto bg-white rounded-lg shadow">
 //           <table className="table">
 //             <thead>
 //               <tr>
