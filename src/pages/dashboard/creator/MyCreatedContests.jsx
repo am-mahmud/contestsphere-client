@@ -3,7 +3,6 @@ import { contestAPI } from '../../../api/contest';
 import { Link } from 'react-router';
 import Swal from 'sweetalert2';
 import { FaEdit, FaTrash, FaEye } from 'react-icons/fa';
-import api from '../../../utils/api';
 import { LuClipboardPen } from 'react-icons/lu';
 
 const MyCreatedContests = () => {
