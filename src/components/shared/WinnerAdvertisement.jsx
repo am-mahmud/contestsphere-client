@@ -122,7 +122,7 @@ const WinnerAdvertisement = () => {
             <h3 className="text-2xl font-bold  mb-2">
               First Winners Coming Soon!
             </h3>
-            <p className="text-gray-600">
+            <p >
               Be among the first to win amazing prizes. Join a contest today!
             </p>
           </div>
