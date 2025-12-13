@@ -35,7 +35,7 @@ export const router = createBrowserRouter([
       { path: '/leaderboard', element: <Leaderboard /> },
       { path: '/documentation', element: <Documentation /> },
       { path: '/about', element: <About /> },
-      { path: '/contact', element: <Contact/> },
+      { path: '/contact', element: <Contact /> },
       {
         path: '/contest/:id', element:
           <PrivateRoute>
@@ -58,7 +58,7 @@ export const router = createBrowserRouter([
       { path: '/dashboard/profile', element: <MyProfile /> },
       { path: '/dashboard/add-contest', element: <AddContest /> },
       { path: '/dashboard/my-contests', element: <MyCreatedContests /> },
-      { path: '/dashboard/edit-contest/:id', element: <EditContest /> },
+      {path: '/dashboard/edit-contest/:id',element:<EditContest />},
       { path: '/dashboard/submissions', element: <SubmittedTasks /> },
       { path: '/dashboard/submissions/:id', element: <SubmittedTasks /> },
       { path: '/dashboard/manage-users', element: <ManageUsers /> },

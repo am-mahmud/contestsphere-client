@@ -11,10 +11,7 @@ const MyCreatedContests = () => {
 
   const { data: contests, isLoading } = useQuery({
     queryKey: ['myCreatedContests'],
-    queryFn: async () => {
-      const { data } = await api.get('/api/contests/creator/my-contests');
-      return data;
-    },
+    queryFn: contestAPI.getMyContests
   });
 
   const deleteMutation = useMutation({
@@ -132,3 +129,7 @@ const MyCreatedContests = () => {
 };
 
 export default MyCreatedContests;
+
+
+
+

@@ -21,19 +21,20 @@ const EditContest = () => {
 
   useEffect(() => {
     if (contest) {
-      reset(contest);
+      reset({
+        name: contest.name,
+        image: contest.image,
+        description: contest.description,
+        taskInstruction: contest.taskInstruction,
+        contestType: contest.contestType,
+        price: contest.price,
+        prizeMoney: contest.prizeMoney,
+      });
+
       setDeadline(new Date(contest.deadline));
     }
   }, [contest, reset]);
 
-  const updateMutation = useMutation({
-    mutationFn: (data) => contestAPI.updateContest(id, data),
-    onSuccess: () => {
-      queryClient.invalidateQueries(['myCreatedContests']);
-      Swal.fire({ icon: 'success', title: 'Updated!', timer: 1500 });
-      navigate('/dashboard/my-contests');
-    },
-  });
 
   const onSubmit = (data) => {
     updateMutation.mutate({
@@ -138,7 +139,7 @@ const EditContest = () => {
               onChange={(date) => setDeadline(date)}
               showTimeSelect
               dateFormat="MMMM d, yyyy h:mm aa"
-              minDate={new Date()}
+              // minDate={new Date()}
               className="input input-bordered w-96"
             />
           </div>
