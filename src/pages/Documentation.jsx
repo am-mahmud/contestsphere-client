@@ -2,7 +2,6 @@ import 'react';
 
 export default function Documentation() {
   
-
   return (
     <>
     <title>Documentation</title>
