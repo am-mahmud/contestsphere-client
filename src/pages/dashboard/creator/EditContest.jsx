@@ -11,9 +11,17 @@ const EditContest = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
-  const { register, handleSubmit, formState: { errors }, reset } = useForm();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm();
+
   const [deadline, setDeadline] = useState(new Date());
 
+  /* ================= FETCH CONTEST ================= */
   const { data: contest, isLoading } = useQuery({
     queryKey: ['contest', id],
     queryFn: () => contestAPI.getContest(id),
@@ -35,19 +43,59 @@ const EditContest = () => {
     }
   }, [contest, reset]);
 
+  /* ================= UPDATE MUTATION (FIX) ================= */
+  const updateMutation = useMutation({
+    mutationFn: async (updatedData) => {
+      return await contestAPI.updateContest(id, updatedData);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries(['myCreatedContests']);
+      queryClient.invalidateQueries(['contest', id]);
 
+      Swal.fire({
+        icon: 'success',
+        title: 'Contest Updated!',
+        timer: 1500,
+        showConfirmButton: false,
+      });
+
+      navigate('/dashboard/my-contests');
+    },
+    onError: (error) => {
+      Swal.fire({
+        icon: 'error',
+        title: 'Update Failed',
+        text: error.response?.data?.message || 'Something went wrong',
+      });
+    },
+  });
+
+  /* ================= SUBMIT ================= */
   const onSubmit = (data) => {
     updateMutation.mutate({
       ...data,
       deadline: deadline.toISOString(),
-      price: parseFloat(data.price),
-      prizeMoney: parseFloat(data.prizeMoney),
+      price: Number(data.price),
+      prizeMoney: Number(data.prizeMoney),
     });
   };
 
-  const contestTypes = ['Programming', 'Article Writing', 'Retro Gaming', 'Business Ideas', 'Web Design', 'Mobile App Design'];
+  const contestTypes = [
+    'Programming',
+    'Article Writing',
+    'Retro Gaming',
+    'Business Ideas',
+    'Web Design',
+    'Mobile App Design',
+  ];
 
-  if (isLoading) return <div className="flex justify-center py-12"><span className="loading loading-spinner loading-lg"></span></div>;
+  if (isLoading) {
+    return (
+      <div className="flex justify-center py-12">
+        <span className="loading loading-spinner loading-lg"></span>
+      </div>
+    );
+  }
 
   return (
     <div className="max-w-4xl mx-auto">
@@ -57,100 +105,90 @@ const EditContest = () => {
       </div>
 
       <form onSubmit={handleSubmit(onSubmit)} className="card bg-white shadow-lg">
-        <div className="card-body space-y-2">
-          <label className="label"><span className="label-text font-semibold">Contest Name *</span></label>
-          <div className="form-control">
-            <input
-              type="text"
-              className="input input-bordered w-full"
-              {...register('name', { required: 'Required', minLength: { value: 5, message: 'Min 5 characters' } })}
-            />
-            {errors.name && <span className="text-error text-sm">{errors.name.message}</span>}
-          </div>
+        <div className="card-body space-y-3">
 
+          {/* Contest Name */}
+          <label className="label font-semibold">Contest Name *</label>
+          <input
+            className="input input-bordered"
+            {...register('name', { required: 'Required', minLength: 5 })}
+          />
+          {errors.name && <p className="text-error">{errors.name.message}</p>}
 
-          <label className="label"><span className="label-text font-semibold">Image URL *</span></label>
-          <div className="form-control">
-            <input
-              type="url"
-              className="input input-bordered w-full"
-              {...register('image', { required: 'Required', pattern: { value: /^https?:\/\/.+\..+/i, message: 'Invalid URL' } })}
-            />
-            {errors.image && <span className="text-error text-sm">{errors.image.message}</span>}
-          </div>
+          {/* Image */}
+          <label className="label font-semibold">Image URL *</label>
+          <input
+            className="input input-bordered"
+            {...register('image', { required: 'Required' })}
+          />
 
-          <label className="label"><span className="label-text font-semibold">Description *</span></label>
-          <div className="form-control">
+          {/* Description */}
+          <label className="label font-semibold">Description *</label>
+          <textarea
+            className="textarea textarea-bordered"
+            {...register('description', { required: 'Required', minLength: 50 })}
+          />
 
-            <textarea
-              className="textarea textarea-bordered h-24 w-full"
-              {...register('description', { required: 'Required', minLength: { value: 50, message: 'Min 50 characters' } })}
-            ></textarea>
-            {errors.description && <span className="text-error text-sm">{errors.description.message}</span>}
-          </div>
+          {/* Task */}
+          <label className="label font-semibold">Task Instructions *</label>
+          <textarea
+            className="textarea textarea-bordered"
+            {...register('taskInstruction', { required: 'Required', minLength: 30 })}
+          />
 
-          <label className="label"><span className="label-text font-semibold">Task Instructions *</span></label>
-          <div className="form-control">
+          {/* Contest Type */}
+          <label className="label font-semibold">Contest Type *</label>
+          <select className="select select-bordered" {...register('contestType', { required: true })}>
+            <option value="">Select type</option>
+            {contestTypes.map((t) => (
+              <option key={t} value={t}>{t}</option>
+            ))}
+          </select>
 
-            <textarea
-              className="textarea textarea-bordered h-24 w-full"
-              {...register('taskInstruction', { required: 'Required', minLength: { value: 30, message: 'Min 30 characters' } })}
-            ></textarea>
-            {errors.taskInstruction && <span className="text-error text-sm">{errors.taskInstruction.message}</span>}
-          </div>
-
-          <div className="form-control">
-            <label className="label"><span className="label-text font-semibold">Contest Type *</span></label>
-            <select className="select select-bordered" {...register('contestType', { required: 'Required' })}>
-              <option value="">Select type</option>
-              {contestTypes.map((type) => <option key={type} value={type}>{type}</option>)}
-            </select>
-            {errors.contestType && <span className="text-error text-sm">{errors.contestType.message}</span>}
-          </div>
-
+          {/* Price + Prize */}
           <div className="grid grid-cols-2 gap-4">
-            <div className="form-control">
-              <label className="label"><span className="label-text font-semibold">Entry Fee ($) *</span></label>
-              <input
-                type="number"
-                step="0.01"
-                className="input input-bordered"
-                {...register('price', { required: 'Required', min: { value: 1, message: 'Min $1' } })}
-              />
-              {errors.price && <span className="text-error text-sm">{errors.price.message}</span>}
-            </div>
-            <div className="form-control">
-              <label className="label"><span className="label-text font-semibold">Prize ($) *</span></label>
-              <input
-                type="number"
-                step="0.01"
-                className="input input-bordered"
-                {...register('prizeMoney', { required: 'Required', min: { value: 1, message: 'Min $1' } })}
-              />
-              {errors.prizeMoney && <span className="text-error text-sm">{errors.prizeMoney.message}</span>}
-            </div>
-          </div>
-
-
-          <div className="form-control">
-            <label className="label"><span className="label-text font-semibold">Deadline *</span></label>
-            <DatePicker
-              selected={deadline}
-              onChange={(date) => setDeadline(date)}
-              showTimeSelect
-              dateFormat="MMMM d, yyyy h:mm aa"
-              // minDate={new Date()}
-              className="input input-bordered w-96"
+            <input
+              type="number"
+              className="input input-bordered"
+              {...register('price', { required: true, min: 1 })}
+              placeholder="Entry Fee"
+            />
+            <input
+              type="number"
+              className="input input-bordered"
+              {...register('prizeMoney', { required: true, min: 1 })}
+              placeholder="Prize Money"
             />
           </div>
 
+          {/* Deadline */}
+          <label className="label font-semibold">Deadline *</label>
+          <DatePicker
+            selected={deadline}
+            onChange={(date) => setDeadline(date)}
+            showTimeSelect
+            dateFormat="MMMM d, yyyy h:mm aa"
+            className="input input-bordered"
+          />
 
+          {/* Buttons */}
           <div className="flex gap-4 pt-4">
-            <button type="submit" className="btn bg-[#20beff] text-white flex-1" disabled={updateMutation.isPending}>
-              {updateMutation.isPending ? <><span className="loading loading-spinner loading-sm"></span> Updating...</> : 'Update Contest'}
+            <button
+              type="submit"
+              className="btn bg-[#20beff] text-white flex-1"
+              disabled={updateMutation.isPending}
+            >
+              {updateMutation.isPending ? 'Updating...' : 'Update Contest'}
             </button>
-            <button type="button" onClick={() => navigate('/dashboard/my-contests')} className="btn btn-outline">Cancel</button>
+            <button
+              type="button"
+              onClick={() => navigate('/dashboard/my-contests')}
+              className="btn btn-outline"
+            >
+              Cancel
+            </button>
           </div>
+
         </div>
       </form>
     </div>
@@ -158,5 +196,3 @@ const EditContest = () => {
 };
 
 export default EditContest;
-
-
