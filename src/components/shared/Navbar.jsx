@@ -66,7 +66,7 @@ const Navbar = () => {
   );
 
   return (
-    <div className='bg-base-100 dark:bg-gray-900 shadow-sm sticky top-0 z-50 px-4 lg:px-8 transition-colors duration-300'>
+    <div className='bg-base-100 shadow-sm sticky top-0 z-50 px-4 lg:px-8'>
       <div className="container mx-auto">
         <div className="navbar py-2 lg:py-4 px-0">
           
@@ -86,7 +86,7 @@ const Navbar = () => {
 
    
           <div className="navbar-center hidden lg:flex">
-            <div className="flex gap-2">
+            <div className="flex gap-4 text-sm">
               {links}
             </div>
           </div>
@@ -136,7 +136,7 @@ const Navbar = () => {
                 </Link>
                 <Link 
                   to="/register" 
-                  className="btn btn-xs sm:btn-sm rounded-full bg-gray-900 dark:bg-gray-700 text-white border-gray-900 dark:border-gray-700 hover:bg-[#20beff] hover:border-[#20beff]"
+                  className="btn btn-xs sm:btn-sm rounded-full bg-gray-900  text-white hover:bg-[#20beff] hover:border-[#20beff]"
                 >
                   Register
                 </Link>

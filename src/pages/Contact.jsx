@@ -47,8 +47,8 @@ export default function Contact() {
               <FaEnvelope className="text-3xl text-[#20beff]" />
               <h3 className="text-xl font-bold">Email</h3>
             </div>
-            <p className="text-gray-200 ">support@contestsphere.com</p>
-            <p className="text-gray-200 ">info@contestsphere.com</p>
+            <p>support@contestsphere.com</p>
+            <p>info@contestsphere.com</p>
           </div>
 
           <div className="rounded-2xl p-6 shadow-lg">
@@ -56,8 +56,8 @@ export default function Contact() {
               <FaPhone className="text-3xl text-[#20beff]" />
               <h3 className="text-xl font-bold">Phone</h3>
             </div>
-            <p className="text-gray-200">+880 1234 567890</p>
-            <p className="text-gray-200">+880 1234 567890</p>
+            <p >+880 1234 567890</p>
+            <p >+880 1234 567890</p>
           </div>
 
           <div className=" rounded-2xl p-6 shadow-lg">
@@ -65,8 +65,8 @@ export default function Contact() {
               <FaMapMarkerAlt className="text-3xl text-[#20beff]" />
               <h3 className="text-xl font-bold">Location</h3>
             </div>
-            <p className="text-gray-200 dark:text-gray-300">Dhaka, Bangladesh</p>
-            <p className="text-gray-200 dark:text-gray-300">Open worldwide</p>
+            <p >Dhaka, Bangladesh</p>
+            <p>Open worldwide</p>
           </div>
         </div>
 
@@ -116,7 +116,7 @@ export default function Contact() {
                   value={formData.subject}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-2 border rounded-xl focus:outline-none focus:border-[#20beff] transition-colors"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:border-[#20beff] transition-colors"
                   placeholder="How can we help?"
                 />
               </div>
