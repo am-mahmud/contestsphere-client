@@ -50,7 +50,7 @@ const MyWinning = () => {
       )}
 
       {!isLoading && data && data.length === 0 && (
-        <div className="card bg-white shadow-lg">
+        <div className="card  shadow-lg">
           <div className="card-body text-center py-12">
             <div className="text-6xl mb-4 flex items-center justify-center"><FaTrophy /></div>
             <h3 className="text-2xl font-bold  mb-2">

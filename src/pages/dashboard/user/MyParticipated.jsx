@@ -65,7 +65,7 @@ const MyParticipated = () => {
             return (
               <div
                 key={participation._id}
-                className="card bg-white shadow-lg hover:shadow-xl transition-shadow"
+                className="card shadow-lg hover:shadow-xl transition-shadow"
               >
                 <div className="card-body">
                   <div className="flex flex-col lg:flex-row gap-6">
