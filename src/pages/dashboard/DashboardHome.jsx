@@ -36,6 +36,7 @@ const DashboardHome = () => {
 
   return (
     <div>
+      <title>Dashboard</title>
       
       <div className="mb-8">
         <h1 className="text-3xl lg:text-4xl font-bold mb-2">
