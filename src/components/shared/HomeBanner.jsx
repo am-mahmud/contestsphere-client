@@ -60,7 +60,7 @@ const HomeBanner = () => {
 
                                     <button
                                         onClick={handleSearch}
-                                        className='w-full bg-linear-to-r from-[#20beff] to-blue-600 text-white py-3 rounded-xl font-bold hover:shadow-lg transition-all'
+                                        className='w-full bg-linear-to-r bg-gray-900 hover:bg-[#20beff] text-white border-gray-900 hover:border-[#20beff] py-3 px-6 rounded-full font-bold text-lg hover:shadow-lg transition-all'
                                     >
                                         Search Contests
                                     </button>

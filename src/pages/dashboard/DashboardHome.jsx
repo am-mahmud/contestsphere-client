@@ -63,7 +63,7 @@ const DashboardHome = () => {
         ))}
       </div>
 
-      <div className="card bg-white shadow-lg">
+      <div className="card shadow-lg">
         <div className="card-body">
           <h2 className="card-title text-2xl mb-4">Quick Actions</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">

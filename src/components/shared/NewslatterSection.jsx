@@ -97,7 +97,7 @@ export default function NewsletterSection() {
                   Subscribing...
                 </span>
               ) : isSubscribed ? (
-                '✓ Subscribed'
+                'Subscribed'
               ) : (
                 'Subscribe Now'
               )}
