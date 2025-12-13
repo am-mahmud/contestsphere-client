@@ -107,7 +107,7 @@ const EditContest = () => {
       
           <label className="label font-semibold">Contest Name *</label>
           <input
-            className="input input-bordered"
+            className="input input-bordered w-full"
             {...register('name', { required: 'Required', minLength: 5 })}
           />
           {errors.name && <p className="text-error">{errors.name.message}</p>}
@@ -115,21 +115,21 @@ const EditContest = () => {
          
           <label className="label font-semibold">Image URL *</label>
           <input
-            className="input input-bordered"
+            className="input input-bordered  w-full"
             {...register('image', { required: 'Required' })}
           />
 
      
           <label className="label font-semibold">Description *</label>
           <textarea
-            className="textarea textarea-bordered"
+            className="textarea textarea-bordered  w-full"
             {...register('description', { required: 'Required', minLength: 50 })}
           />
 
      
           <label className="label font-semibold">Task Instructions *</label>
           <textarea
-            className="textarea textarea-bordered"
+            className="textarea textarea-bordered  w-full"
             {...register('taskInstruction', { required: 'Required', minLength: 30 })}
           />
 
