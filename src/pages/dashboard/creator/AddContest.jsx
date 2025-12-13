@@ -65,7 +65,7 @@ const AddContest = () => {
         </p>
       </div>
 
-      <div className="card bg-white shadow-lg max-w-4xl">
+      <div className="card shadow-lg max-w-4xl">
         <div className="card-body">
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
             <label className="label">
@@ -218,7 +218,7 @@ const AddContest = () => {
                 className="input input-bordered w-96"
                 placeholderText="Select deadline date and time"
               />
-              
+
             </div>
 
             <div className="form-control mt-8">
