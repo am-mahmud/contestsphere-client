@@ -112,8 +112,8 @@ const Navbar = () => {
                 <button tabIndex={0} className="btn btn-ghost btn-circle avatar btn-sm lg:btn-md">
                   <div className="w-8 lg:w-10 rounded-full ring ring-[#20beff] ring-offset-1">
                     <img
-                      src={user.photo || 'https://i.ibb.co.com/nsD8dcGf/user.png'}
-                      alt={user.name}
+                      src={user.photo}
+                      alt={""}
                     />
                   </div>
                 </button>
@@ -146,7 +146,7 @@ const Navbar = () => {
         </div>
 
         {mobileMenuOpen && (
-          <div className="lg:hidden pb-4 border-t border-gray-200 dark:border-gray-700">
+          <div className="lg:hidden pb-4 border-t border-gray-200">
             <div className="flex flex-col gap-3 pt-4">
             
               <div className="flex flex-col gap-2">
@@ -185,7 +185,7 @@ const Navbar = () => {
                   <Link 
                     to="/register"
                     onClick={() => setMobileMenuOpen(false)}
-                    className="btn btn-sm w-full rounded-full bg-gray-900 dark:bg-gray-700 text-white hover:bg-[#20beff] hover:border-[#20beff]"
+                    className="btn btn-sm w-full rounded-full text-white hover:bg-[#20beff] hover:border-[#20beff]"
                   >
                     Register
                   </Link>
