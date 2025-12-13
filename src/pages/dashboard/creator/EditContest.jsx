@@ -21,7 +21,6 @@ const EditContest = () => {
 
   const [deadline, setDeadline] = useState(new Date());
 
-  /* ================= FETCH CONTEST ================= */
   const { data: contest, isLoading } = useQuery({
     queryKey: ['contest', id],
     queryFn: () => contestAPI.getContest(id),
@@ -43,7 +42,6 @@ const EditContest = () => {
     }
   }, [contest, reset]);
 
-  /* ================= UPDATE MUTATION (FIX) ================= */
   const updateMutation = useMutation({
     mutationFn: async (updatedData) => {
       return await contestAPI.updateContest(id, updatedData);
@@ -70,7 +68,6 @@ const EditContest = () => {
     },
   });
 
-  /* ================= SUBMIT ================= */
   const onSubmit = (data) => {
     updateMutation.mutate({
       ...data,
@@ -104,10 +101,10 @@ const EditContest = () => {
         <p className="text-gray-600">Update contest details</p>
       </div>
 
-      <form onSubmit={handleSubmit(onSubmit)} className="card bg-white shadow-lg">
+      <form onSubmit={handleSubmit(onSubmit)} className="card  shadow-lg">
         <div className="card-body space-y-3">
 
-          {/* Contest Name */}
+      
           <label className="label font-semibold">Contest Name *</label>
           <input
             className="input input-bordered"
@@ -115,28 +112,28 @@ const EditContest = () => {
           />
           {errors.name && <p className="text-error">{errors.name.message}</p>}
 
-          {/* Image */}
+         
           <label className="label font-semibold">Image URL *</label>
           <input
             className="input input-bordered"
             {...register('image', { required: 'Required' })}
           />
 
-          {/* Description */}
+     
           <label className="label font-semibold">Description *</label>
           <textarea
             className="textarea textarea-bordered"
             {...register('description', { required: 'Required', minLength: 50 })}
           />
 
-          {/* Task */}
+     
           <label className="label font-semibold">Task Instructions *</label>
           <textarea
             className="textarea textarea-bordered"
             {...register('taskInstruction', { required: 'Required', minLength: 30 })}
           />
 
-          {/* Contest Type */}
+       
           <label className="label font-semibold">Contest Type *</label>
           <select className="select select-bordered" {...register('contestType', { required: true })}>
             <option value="">Select type</option>
@@ -145,7 +142,6 @@ const EditContest = () => {
             ))}
           </select>
 
-          {/* Price + Prize */}
           <div className="grid grid-cols-2 gap-4">
             <input
               type="number"
@@ -161,7 +157,7 @@ const EditContest = () => {
             />
           </div>
 
-          {/* Deadline */}
+    
           <label className="label font-semibold">Deadline *</label>
           <DatePicker
             selected={deadline}
@@ -171,7 +167,6 @@ const EditContest = () => {
             className="input input-bordered"
           />
 
-          {/* Buttons */}
           <div className="flex gap-4 pt-4">
             <button
               type="submit"
