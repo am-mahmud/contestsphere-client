@@ -20,7 +20,7 @@ export const contestAPI = {
   },
 
   getMyContests: async () => {
-    const { data } = await api.get('/api/contests/creator/my');
+    const { data } = await api.get('/api/contests/creator/my-contests');
     return data;
   },
 
